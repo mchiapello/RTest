@@ -177,7 +177,9 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
 #' 
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 test_returnValue_variable <- function(result, reference, xmlTestSpec, add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   
@@ -360,7 +362,9 @@ test_returnValue_variable <- function(result, reference, xmlTestSpec, add.desc =
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestSpec,
 		add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   
@@ -609,7 +613,9 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
 #' 
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 test_returnValue_data.frame_cellbycell <- function(result, reference, xmlTestSpec, add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   RTest.cat(" data.frame: ",dim(result)[1]," x ",dim(result)[2]," ... ")
@@ -725,9 +731,9 @@ test_returnValue_data.frame_cellbycell <- function(result, reference, xmlTestSpe
         
         
         rec.colTypes <- sapply(1:rec.ncols, function(i) {
-              type <- typeof(reference[[i]])
+              type <- typeof(result[[i]])
               if(type=="integer"){
-                if(grepl("Factor",capture.output(str(reference[[i]])))){
+                if(grepl("Factor",capture.output(str(result[[i]])))){
                   "factor"
                 }else{
                   type
@@ -1017,7 +1023,9 @@ test_returnValue_data.frame_cellbycell <- function(result, reference, xmlTestSpe
 #' 
 #' @author   Sebastian Wolf \email{sebastian.wolf.sw1@@roche.com}
 test_returnValue_data.frame_shape <- function(result, reference, xmlTestSpec, add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   RTest.cat(" data.frame: ",dim(result)[1]," x ",dim(result)[2]," ... ")
@@ -1213,7 +1221,9 @@ test_returnValue_data.frame_shape <- function(result, reference, xmlTestSpec, ad
 #' 
 #' @author   Sergej Potapov \email{sergej.potapov@@roche.com}
 test_returnValue_list_nodebynode <- function(result, reference, xmlTestSpec, add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   # Global settings of the test -------------------------------------------------------------------
@@ -1421,7 +1431,9 @@ test_returnValue_list_nodebynode <- function(result, reference, xmlTestSpec, add
 test_manualCheck_file <- function(result, reference, xmlTestSpec, add.desc = NULL,
     openrecexp = NULL, openrecexp.exec = FALSE) 
 {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   # Check if provided reference is a file or just a description
@@ -1664,9 +1676,12 @@ test_manualCheck_confirmWindow <- function(openrecexp = NULL, expectedTxt = NULL
 #'			}
 #'		})
 #'		
+#' @importFrom magick image_compare image_read image_write
 #' @author   Sebastian Wolf \email{sebastian.wolf.sw1@@roche.com}
 test_returnValue_image <- function(result, reference, xmlTestSpec, add.desc = NULL) {
-  
+	if(is.null(xmlTestSpec)){
+		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
+	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   # Global settings of the test -------------------------------------------------------------------
@@ -1728,79 +1743,62 @@ test_returnValue_image <- function(result, reference, xmlTestSpec, add.desc = NU
         if(test.tolerance == 0)
           test.tolerance <- 1.5e-8
         
-        difference_png_name <- paste0(tempfile(),".png")
+        difference_png_name <- tempfile( fileext = ".png")
         
         
-        ImageMagick <- tryCatch({
-					if(Sys.info()["sysname"]=="Windows"){
-		              shell("magick",intern=T)
-					}else{
-					  system("magick",intern=T)
-					}
-              "magick "
-            },
-            warning = function(w){
-              Sys.setenv(PATH=paste("C:\\Program Files\\ImageMagick-6.9.0-Q8",
-                      Sys.getenv("PATH"),
-                      sep=";"))
-	  		  tryCatch({
-						  if(Sys.info()["sysname"]=="Windows"){
-							  shell("compare",intern=T)
-						  }else{
-							  system("compare",intern=T)
-						  }
-						  return("")
-					  },warning=function(w){
-						  if(grepl("status 1",w)){
-							  stop("No ImageMagick installed. Please use \n
-								sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev \n
-								on Linux or download ImageMagick for Windows.
-								")
-						  }else{
-							  
-							  return("")
-						  }
-					  })
-              
-            },
-			error=function(e){
-				tryCatch({
-							system("convert",intern=T)
-							return("")
-						},error=function(e){
-							stop("No ImageMagick installed. Please use \n
-											sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev \n
-											on Linux or download ImageMagick for Windows.
-											")
-						})
-			}
-        )
-		if(Sys.info()["sysname"]=="Windows"){
-			compare_result <- suppressWarnings(shell(
-							paste(ImageMagick,"compare -metric RMSE \"",
-									gsub("\\\\", "/", result),"\" \"",
-									gsub("\\\\", "/",reference),"\" ",
-									paste0("\"",difference_png_name,"\""," 2>&1"),sep=""),
-							intern=T))
-		}else{
-			compare_result <- suppressWarnings(system(
-							paste(ImageMagick,"compare -metric RMSE \"",
-									gsub("\\\\", "/", result),"\" \"",
-									gsub("\\\\", "/",reference),"\" ",
-									paste0("\"",difference_png_name,"\""," 2>&1"),sep=""),
-							intern=T))
-		}
-       
+#        ImageMagick <- if(Sys.which("magick")!=""){
+#					"magick "
+#				}else{
+#					if(Sys.which("compare")==""){
+#						stop("No ImageMagick installed. Please use \n
+#										sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev \n
+#										on Linux or download ImageMagick for Windows.
+#										")
+#					}else{
+#						""
+#					}
+#				}
+#		
+#		if(Sys.info()["sysname"]=="Windows"){
+#			compare_result <- suppressWarnings(shell(
+#							paste(ImageMagick,"compare -metric RMSE \"",
+#									gsub("\\\\", "/", result),"\" \"",
+#									gsub("\\\\", "/",reference),"\" ",
+#									paste0("\"",difference_png_name,"\""," 2>&1"),sep=""),
+#							intern=T))
+#		}else{
+#			compare_result <- suppressWarnings(system(
+#							paste(ImageMagick,"compare -metric RMSE \"",
+#									gsub("\\\\", "/", result),"\" \"",
+#									gsub("\\\\", "/",reference),"\" ",
+#									paste0("\"",difference_png_name,"\""," 2>&1"),sep=""),
+#							intern=T))
+#		}
         
-        difference_in_percent <- as.numeric(
-            sub("\\(","",
-                stringr::str_extract(compare_result[1],"\\([^\\)]*")
-            )
-        )
-		base64::encode(difference_png_name, difference_png_name)
+#        difference_in_percent <- as.numeric(
+#            sub("\\(","",
+#                stringr::str_extract(compare_result[1],"\\([^\\)]*")
+#            )
+#        )
+				
+		image_compared <- magick::image_compare(
+				image=magick::image_read(result),
+				reference_image = magick::image_read(reference),
+				metric = "RMSE")
+		difference_in_percent <- attributes(image_compared)$distortion
+
+		magick::image_write(
+				image_compared,
+				path = difference_png_name
+						
+		)
+
+		difference_png_name_text <- tempfile()
+		
+		base64::encode(difference_png_name, difference_png_name_text)
         
         src <- sprintf("data:image/png;base64,%s", 
-            paste(readLines(difference_png_name), collapse = ""))
+            paste(readLines(difference_png_name_text), collapse = ""))
         
         image_for_info <- 
             sprintf("<img width=200 src='%s' alt='%s' />",
@@ -1831,4 +1829,56 @@ test_returnValue_image <- function(result, reference, xmlTestSpec, add.desc = NU
             stop("Compare type '", test.compareType,"' currently not implemented.")
         )
       })  
+}
+
+
+#' Generically compare two values with RTest
+#' 
+#' This function compares two value by a \code{test_returnValue_...} function
+#' that fits the class of the \code{reference} input parameter.
+#' 
+#' @param result (\code{any}) Any value of type character, numeric, data.frame or list
+#' 	(image links do not work!)
+#' @param reference (\code{any}) Any value of type character, numeric, data.frame or list
+#' 	(image links do not work!)
+#' @param xmlTestSpec (\code{XMLNode}) An XMLNode of type \code{RTest_test_returnValue_...}
+#' 
+#' @return The function will not return anything but call \code{testthat} functions 
+#'    creating outputs in the reporter
+#' 
+#' @export 
+#' 
+#' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
+test_returnValue_any <- function(result,reference,xmlTestSpec){
+	### ------ Check class of values (result, reference) ------ ######			
+	
+	test_returnValue_variable(
+			class(result),
+			class(reference),
+			NULL,
+			add.desc="Checking output class and reference class.")
+	
+	### ------ Compare values ------ ######	
+	
+	if(class(reference)=="data.frame"){
+		test_returnValue_data.frame_cellbycell(
+				result,
+				reference,
+				xmlTestSpec = xmlTestSpec)
+	}else if(class(reference)=="list"){
+		test_returnValue_list_nodebynode(
+				result,
+				reference,
+				xmlTestSpec = xmlTestSpec)
+	}else if(length(reference)>1){
+		test_returnValue_vector_elementbyelement(
+				result = result,
+				reference = reference,
+				xmlTestSpec = xmlTestSpec)
+	}else{
+		test_returnValue_variable(
+				result,
+				reference,
+				xmlTestSpec = xmlTestSpec)
+	}
 }

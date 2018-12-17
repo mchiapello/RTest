@@ -4,9 +4,9 @@
 \alias{RTestCase}
 \title{Constructor for RTestCase}
 \usage{
-RTestCase(ID = NULL, tc.type = NULL, synopsis = NULL, xml.fPath = NULL,
-  xml.root = NULL, input.data = NULL, tests = NULL, test.for = NULL,
-  test.result = NULL)
+RTestCase(ID = NULL, tc.type = NULL, synopsis = NULL,
+  xml.fPath = NULL, xml.root = NULL, input.data = NULL,
+  tests = NULL, test.for = NULL, test.result = NULL)
 }
 \arguments{
 \item{ID}{(\code{character}) ID of the TC.}
@@ -41,9 +41,9 @@ executed.}
 Constructor for RTestCase
 }
 \examples{
-
+library(RTest)
 xml.root <- XML::newXMLNode("func01")
-xmlFromList(xml.root,
+RTest::xmlFromList(xml.root,
 		list(
 				params=list(mult=list(attributes=c(value="1",type="numeric"))),
 				testspec=list(
