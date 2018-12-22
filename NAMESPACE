@@ -56,6 +56,9 @@ export(
   "example_vector"							  ,
   "example_variable"						  ,
   
+  "expect_silent_RTest"						  ,
+  "as.expectation.logical"					  ,
+  
   "RTest.execute"					  
 )
 
@@ -82,6 +85,9 @@ importFrom("utils", "capture.output", "ls.str", "sessionInfo", "str",
              "tar"
 )
 importFrom("magick", "image_compare","image_read","image_write")
+importFrom("glue", "glue","glue_collapse")
+importFrom("rlang", "enquo")
+importFrom("utils", "packageVersion")
 
 
 # Exported classes and corresponding methods ######################################################

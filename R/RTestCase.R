@@ -96,7 +96,7 @@ setClass(
 #' 
 #' @examples 
 #' library(RTest)
-# Define the params and TestSpec
+#' 
 #' xml.root <- XML::newXMLNode("func01")
 #' RTest::xmlFromList(xml.root,
 #' 		list(
@@ -132,7 +132,7 @@ setClass(
 #' 		"pgk-iter"       = "1",
 #' 		"func"           = "funct_01",
 #' 		"func-iter"      = "1",
-#' 		"test-code"      = "RTest::funct_01",
+#' 		"test-code"      = "RTest::test_fun",
 #' 		"test-adapter"   = "RTestCase",
 #' 		"test-func"      = "test.RTest.funct_01",
 #' 		"pkg-desc"       = "no package desc",
@@ -972,8 +972,8 @@ setMethod("test",
 #              message("\n----------\n")
 #              print(str(reporter$results$as_list()))
 #              message("\n----------\n")
-              
-              reporter.failed <- sum(sapply(reporter$results$as_list(), 
+
+				reporter.failed <- sum(sapply(reporter$results$as_list(), 
                   function(repores) length(which(sapply(repores$results, 
                           function(e) !"expectation_success" %in% class(e))))))
               
@@ -1762,7 +1762,6 @@ setMethod("getExecDetails.html",
                               if(report.onlyFailed == FALSE || 
                                 (report.onlyFailed && expec.status == "FAILED")) 
                               {
-                                
                                 expec.msg <- expec$message  #ifelse(expec$passed, expec$success_msg, expec$failure_msg)
                                 
 #                                message("\n* expec.msg\n")
@@ -1776,7 +1775,7 @@ setMethod("getExecDetails.html",
 #                                print(expec.msg.array)
 #                                message("\n***\n")
 #                                browser()
-                                if(length(expec.msg.array) == 1) {
+                                if(length(expec.msg.array) <= 1) {
                                   expec.msg.main <- expec.msg
                                   expec.msg.info <- c(
                                     "Test"        = "Test Expected Behaviour",
@@ -1787,20 +1786,21 @@ setMethod("getExecDetails.html",
                                   expec.msg.main   <- expec.msg.array[1]
                                   
                                   if(length(expec.msg.array) > 2) {
-                                    expec.msg.others <- expec.msg.array[2:(length(expec.msg.array)-1)]
+                                    expec.msg.others <- expec.msg.array[2:(length(expec.msg.array))]
                                   } else {
                                     expec.msg.others <- expec.msg.array[length(expec.msg.array)]
                                   }
 								  `%:::%` = function(pkg, fun) get(fun, envir = asNamespace(pkg),
 											  inherits = FALSE)
 								  fromJSON_string <-  "jsonlite" %:::% "fromJSON_string"
-								  
-                                  if(grepl("^\\{.*\\}$", expec.msg.array[length(expec.msg.array)])) {
+
+								  if(grepl("^\\{.*\\}$", expec.msg.array[length(expec.msg.array)])) {
                                     expec.msg.info <- expec.msg.array[length(expec.msg.array)]
                                     expec.msg.info <- fromJSON_string(expec.msg.info)
                                     expec.msg.others <- expec.msg.others[1:(length(expec.msg.others)-1)]
                                   } else {
-                                    expec.msg.info <- ""
+                                    expec.msg.info <- c(noinfo="")
+									
                                   }
                                 }
                                 
@@ -1817,7 +1817,7 @@ setMethod("getExecDetails.html",
                                 
                                 expec.msg.info.names <- names(expec.msg.info)
                                 expec.msg.info.length <- length(expec.msg.info)
-                                
+								
                                 if(!identical(expec.info.pre, expec.msg.info.names)) {
                                   
                                   if(i.expec.written > 1) {
@@ -1827,17 +1827,17 @@ setMethod("getExecDetails.html",
                                   out.test <- paste0(out.test, "              <table width=\"100%\" class=\"TCExpecSummary\">")
                                   out.test <- paste0(out.test, "                <tr>")
                                   out.test <- paste0(out.test, "                  <th width=\"25\">#</th>")
-                                  if(expec.msg.info.length > 0) {
-                                    lapply(1:expec.msg.info.length, function(i.info) {
-                                        if(i.info == 1)
-                                          out.test <<- paste0(out.test, "                  <th width=\"200\">",expec.msg.info.names[i.info],"</th>")
-                                        else
-                                          out.test <<- paste0(out.test, "                  <th>",expec.msg.info.names[i.info],"</th>")
-                                      })
+								  if(expec.msg.info.length > 0 && expec.msg.info.names[1]!="noinfo") {
+									  lapply(1:expec.msg.info.length, function(i.info) {
+													  if(i.info == 1)
+														  out.test <<- paste0(out.test, "                  <th width=\"200\">",expec.msg.info.names[i.info],"</th>")
+													  else
+														  out.test <<- paste0(out.test, "                  <th>",expec.msg.info.names[i.info],"</th>")
+											  })
                                     #lapply(expec.msg.info.names, function(info) 
                                     #    paste0(out.test, "                  <th>",info,"</th>"))
                                   } else {
-                                    out.test <- paste0(out.test, "                  <th></th>")  
+                                    out.test <- paste0(out.test, "                  <th>-</th>")  
                                   }
                                   out.test <- paste0(out.test, "                  <th width=\"250\">Info</th>")
                                   out.test <- paste0(out.test, "                  <th width=\"150\">Status</th>")
@@ -1848,7 +1848,7 @@ setMethod("getExecDetails.html",
                                 
                                 out.test <- paste0(out.test, "                <tr>")            
                                 out.test <- paste0(out.test, "                  <td align=\"center\">",i.expec.written,"</td>")
-                                if(expec.msg.info.length > 0) {
+                                if(expec.msg.info.length > 0 && expec.msg.info.names[1]!="noinfo") {
                                   lapply(expec.msg.info, 
                                     function(info)
                                       out.test <<- paste0(out.test, "                  <td align=\"center\">",info,"</td>"))
@@ -1877,7 +1877,7 @@ setMethod("getExecDetails.html",
                                     out.test <- paste0(out.test, "                  <td></td>")
                                   }
                                   out.test <- paste0(out.test, "                  <td class=\"FAILURE-msg\">")
-                                  out.test <- paste0(out.test, "                    ",paste(expec.msg.others, collapse="<br />"))
+                                  out.test <- paste0(out.test, "                    ",paste0(expec.msg.others, collapse="<br/>"))
                                   out.test <- paste0(out.test, "                  </td>")
                                   out.test <- paste0(out.test, "                  <td align=\"center\" class=\"",expec.status,"\"></td>")
                                   out.test <- paste0(out.test, "                </tr>")

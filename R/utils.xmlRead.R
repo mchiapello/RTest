@@ -252,7 +252,6 @@ xmlReadData_data.frame <- function(xmlItem, na_to_none=FALSE) {
   if(is.null(xmlItem))
     return(NULL)
   
-  
   # Filter specific elements of the XML item ------------------------------------------------------
   
   # Column definitions
@@ -265,7 +264,6 @@ xmlReadData_data.frame <- function(xmlItem, na_to_none=FALSE) {
   # Table attributes
   xmlItem.attrs   <- xmlAttrs(xmlItem)
   
-  
   # Read XML contents -----------------------------------------------------------------------------
   
   # Read column definitions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -274,6 +272,8 @@ xmlReadData_data.frame <- function(xmlItem, na_to_none=FALSE) {
         xmlItem.coldefs,
         function(xmlDefs) { xmlApply(xmlDefs, xmlAttrs) },
         simplify = FALSE, USE.NAMES = TRUE), recursive = FALSE) 
+
+  table.coldefs <- Filter(Negate(is.null),  table.coldefs)
 
   # Read data table contents: iterate trhough xmlItems to read row and cell entries   - - - - - - -
   if(!is.null(xmlItem.rows)) {
@@ -287,21 +287,25 @@ xmlReadData_data.frame <- function(xmlItem, na_to_none=FALSE) {
             xmlSApply(
               xmlRow, 
               function(xmlCell) {     # Parse cells
-                cell        <- c(xmlValue(xmlCell))
-                names(cell) <- xmlAttrs(xmlCell)[["ID"]]
-				if(na_to_none){					
-					if(cell=="NA"){
-						return("")
+				if(xmlValue(xmlCell)!="\\n"){
+					
+	                cell        <- c(xmlValue(xmlCell))
+	                names(cell) <- xmlAttrs(xmlCell)[["ID"]]
+					if(na_to_none){					
+						if(cell=="NA"){
+							return("")
+						}
 					}
+	                return(cell)
 				}
-                return(cell)
               },
               USE.NAMES = TRUE
             )
+		  row <- Filter(Negate(is.null),  row)
           return(t(row))
         }
       )
-    
+	
     table.matrix <- do.call(rbind, table.rows)
     
     

@@ -127,7 +127,6 @@ setTestMethod(
 					what        = "test_fun",
 					args        = list(dat=inputData[[1]], mult=mult),
 					xmlTestSpec = xmlDef[["testspec"]][["execution"]])
-			
 			# Read reference
 			reference <- xmlReadData_data.frame(xmlDef[["reference"]])
 			

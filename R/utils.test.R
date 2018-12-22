@@ -56,7 +56,7 @@
 #'  ),error=function(e){
 #'     stopifnot(grepl("produced warnings",e))
 #'  })
-#' 
+#' @importFrom utils packageVersion
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 test_execution <- function(what, args, xmlTestSpec, ...) {
   
@@ -91,9 +91,18 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
         # Check different execution types.... 
         if(test.type == "silent") {
           # ... without any message / warning / error
-          expect_silent(
-              result <<- do.call(what = what, args = args, ...)
-          )
+		  if(as.numeric(
+				stringr::str_extract(
+						as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
+				  2){
+			  expect_silent_RTest(
+	              result <<- do.call(what = what, args = args, ...)
+	          )
+		  }else{
+			  expect_silent(
+	              result <<- do.call(what = what, args = args, ...)
+					  )
+		  }
           
         } else if(test.type == "output") {
           # ... with message(s)
