@@ -972,10 +972,14 @@ setMethod("test",
 #              message("\n----------\n")
 #              print(str(reporter$results$as_list()))
 #              message("\n----------\n")
-
+			  if(length(reporter$results$as_list())>0){
+					  
 				reporter.failed <- sum(sapply(reporter$results$as_list(), 
                   function(repores) length(which(sapply(repores$results, 
                           function(e) !"expectation_success" %in% class(e))))))
+				  }else{
+				  reporter.failed <- 0
+			  }
               
               
 #              stop()
@@ -1095,10 +1099,8 @@ setMethod("execAdapter",
     
     # Get XML definition --------------------------------------------------------------------------
     # Use the passed xpath to get XML definition of the test item
-    tf.xmlItem <- tryCatch({ 
-				suppressWarnings(getNodeSet(object@xml.root, path = tf.xpath)[[1]]) },
-      # Try to access the XML definition and use the return xml node set
-      
+        # Try to access the XML definition and use the return xml node set
+    tf.xmlItem <- suppressWarnings(getNodeSet(object@xml.root, path = tf.xpath)[[1]]) 
       
 		# In R-3.4.0 it always produces warnings due to a change in the sturcture functions :(
         # Warnings, trough stop message (be very conservative)
@@ -1107,11 +1109,6 @@ setMethod("execAdapter",
 		#        stop("Warning occured during access of XML test element '",tf.xpath,"'.")
 		#	  },
       
-      # Errors, trough stop message
-      error = function(e) {
-		  
-        stop("Invalid xpath passed to access the XML test element '",tf.xpath,"'.")
-	  })
     
     # Execute test function -----------------------------------------------------------------------
     # Call the test function and pass the TC's input data and current XML function definition
@@ -1197,6 +1194,10 @@ setMethod("execCache",
     # Get index of the current test function
     tf.funcIndex <- which(tf.func == names(tf.tests[[tf.pkg]][[tf.pkg.i]]))
     
+	if(length(tf.funcIndex)<1){
+		stop(paste0("no cache created due to unkown '",tf.func,"'"))
+	}
+	
     # Initialize execution cache
     tf.execCache <- NULL
     
@@ -1626,13 +1627,18 @@ setMethod("getExecDetails.html",
                     
                     RTest.cat("Write details for '",tf.pkg,"::",tf.func,"'\n")
                     
-                    tf.exceptions.passed <- sum(sapply(tf.reporter, 
-                        function(repores) length(which(sapply(repores$results, function(e) "expectation_success" %in% class(e))))))
-                    tf.expections.failed <- sum(sapply(tf.reporter, 
-                        function(repores) length(which(sapply(repores$results, function(e) !"expectation_success" %in% class(e))))))
-                    
-                    tf.exceptions <- tf.exceptions.passed + tf.expections.failed
-                    
+					if(tf.nTests>0){
+	                    tf.exceptions.passed <- sum(sapply(tf.reporter, 
+	                        function(repores) length(which(sapply(repores$results, function(e) "expectation_success" %in% class(e))))))
+	                    tf.expections.failed <- sum(sapply(tf.reporter, 
+	                        function(repores) length(which(sapply(repores$results, function(e) !"expectation_success" %in% class(e))))))
+	                    
+	                    tf.exceptions <- tf.exceptions.passed + tf.expections.failed
+	                    
+					}else{
+						tf.exceptions <- tf.expections.failed <-  tf.exceptions.passed  <- 0
+					}
+					
                     tf.status <- if(tf.nTests == 0) "NO-TESTS" else toupper(tf.test$result)
                     
                     tf.desc <- c()
@@ -2027,14 +2033,18 @@ setMethod("getRTMInfos",
         }
       }
       
-      tf.SpecIDs <- paste(tf.pkg.SpecIDs, collapse = ", ")
-      tf.RiskIDs <- paste(tf.pkg.RiskIDs, collapse = ", ")
+      tf.pkg.SpecIDs <- paste(tf.pkg.SpecIDs, collapse = ", ")
+      tf.pkg.RiskIDs <- paste(tf.pkg.RiskIDs, collapse = ", ")
       
       if(length(test.for) > 1) {
-        tf.SpecIDs <- paste0(tf.pkg,": ",tf.SpecIDs)
-        tf.RiskIDs <- paste0(tf.pkg,": ",tf.RiskIDs)
-      }
+        tf.SpecIDs <- c(tf.SpecIDs,paste0(tf.pkg,": ",tf.pkg.SpecIDs))
+        tf.RiskIDs <- c(tf.RiskIDs,paste0(tf.pkg,": ",tf.pkg.RiskIDs))
+      }else{
+		tf.SpecIDs <- c(tf.SpecIDs,tf.pkg.SpecIDs)
+		tf.RiskIDs <- c(tf.RiskIDs,tf.pkg.RiskIDs)
+	  }
       
+	  
     }
     
     RTM$SpecIDs <- paste(tf.SpecIDs, collapse = "; ")

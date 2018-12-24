@@ -26,7 +26,7 @@ test_that("RTestCase initialize",{
 							test.result       = NULL,
 							xml.fPath = "",
 							xml.root = XML::xmlNode("empty")
-					) %>% getXMLRoot(),XML::xmlNode("empty"))
+					) %>% RTest:::getXMLRoot(),XML::xmlNode("empty"))
 			expect_equal(		
 					RTestCase(
 							ID                = "TC01",
@@ -38,7 +38,7 @@ test_that("RTestCase initialize",{
 							test.result       = NULL,
 							xml.fPath = "",
 							xml.root = XML::xmlNode("empty")
-					) %>% getTestFor(),"mypackage")
+					) %>% RTest:::getTestFor(),"mypackage")
 			
 			
 		

@@ -282,8 +282,12 @@ setTestMethod(
 		signature = "RTestCase",
 		definition = function(object, inputData, execCache, xmlDef, package=NULL, ...) {
 			
+		arguments_call <- list()
+		
+		if(!is.null(xmlDef[["params"]])){
 	### ------ Derive call arguments ------ ######			
 			arguments_call <- xmlDef[["params"]] %>% arguments_creator(input_data = inputData)	
+		}
 
 	### ------ Create execution xmlTestSpec ------ ######			
 			# Double check that testSpec is existing
@@ -319,20 +323,23 @@ setTestMethod(
 			reference <- xmlReadData_to_list(
 					xmlNode("reference_data",xmlDef[["reference"]]))[["reference"]]
 			
+			if(!is.null(reference)){
+				
 	### ------ Result vs Reference ----- #####	
-			# - Special case - Image
-			if(!is.null(xmlAttrs(xmlDef[["reference"]])["image"]) && 
-					!is.na(xmlAttrs(xmlDef[["reference"]])["image"])){
-				if(!is.null(xmlAttrs(xmlDef[["reference"]])["exec_value"]) &&
-						!is.na(xmlAttrs(xmlDef[["reference"]])["exec_value"])){
-					reference <- eval(parse(text=reference))
+				# - Special case - Image
+				if(!is.null(xmlAttrs(xmlDef[["reference"]])["image"]) && 
+						!is.na(xmlAttrs(xmlDef[["reference"]])["image"])){
+					if(!is.null(xmlAttrs(xmlDef[["reference"]])["exec_value"]) &&
+							!is.na(xmlAttrs(xmlDef[["reference"]])["exec_value"])){
+						reference <- eval(parse(text=reference))
+					}
+					test_returnValue_image(result, reference,  xmlDef[["testspec"]][["return-value"]],
+							)
+				# - All other cases -
+				}else{
+					test_returnValue_any(result, reference,  xmlDef[["testspec"]][["return-value"]]
+							)
 				}
-				test_returnValue_image(result, reference,  xmlDef[["testspec"]][["return-value"]],
-						)
-			# - All other cases -
-			}else{
-				test_returnValue_any(result, reference,  xmlDef[["testspec"]][["return-value"]]
-						)
 			}
 	
 			return(result)

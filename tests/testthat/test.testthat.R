@@ -103,3 +103,52 @@ test_that("expect_silent_RTest function outptus works", {
 					reporter$results$as_list()[[1]]$results[[1]]$message,
 					"`myfun()` produced:\noutputs = '[1] \"one\"\n[1] \"two\"'")
 		})
+
+
+
+test_that("exec_silent_RTest in reporting works",{
+			
+			global_rep <- get_reporter()
+			# Create test collection
+			testCollection <- new("RTestCollection", 
+					project.name    = "RTest Vignette", 
+					project.details = "Example test exectuion",
+					tester          = "Example tester",
+					test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+			
+			testCollection <- importTCsFromDir(testCollection,
+					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),
+					f.pattern="test.testthat.xml")
+			
+			outf <- tempfile(fileext=".html")
+			
+			intern_reporter <- get_reporter()
+			
+			set_reporter(intern_reporter)
+			# Execute all tests with two warnings
+			my_fun <<- function(){
+				warning("one")
+				warning("two")
+			}
+			testCollection <- exec(testCollection, out.fPath = outf, open=FALSE)
+			
+			set_reporter(global_rep)
+			
+			expect_equal(
+					testCollection@collection[[1]]@tests[["RTest"]][[1]][[1]][[1]]$result,
+					"failed"
+			)
+			# Just one warning
+			my_fun <<- function(){
+				warning("one")
+			}
+			testCollection <- exec(testCollection, out.fPath = outf, open=FALSE)
+			
+			set_reporter(global_rep)
+			
+			expect_equal(
+					testCollection@collection[[1]]@tests[["RTest"]][[1]][[1]][[1]]$result,
+					"failed"
+			)
+			
+		})

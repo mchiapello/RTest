@@ -105,40 +105,18 @@ xmlReadData_image <- function(xmlItem) {
 	# Get value of variable
 	variable.value <- xmlAttrs(xmlItem)[["value"]]
 	
+	if(!file.exists(variable.value)){
+		stop(paste0("Image '",variable.value,"' cannot be found."))
+	}
 	# Cast the type variable
 	variable.value <-  as.character(variable.value)
 	
-	imageMagick <- 
-				if(Sys.which("magick")!=""){
-					"magick "
-				}else{
-					if(Sys.which("convert")==""){
-						stop("No ImageMagick installed. Please use \n
-										sudo apt-get install imagemagick libmagickcore-dev libmagickwand-dev libmagic-dev \n
-										on Linux or download ImageMagick for Windows.
-										")
-					}else{
-									""
-								}
-				}
-	
 	tf <- paste0(tempfile(),".png")
 	
-	# Convert the input string into a PNG image
-	if(Sys.info()["sysname"]=="Windows"){
-		shell(paste0(imageMagick,"convert \"",variable.value,"\" \"",tf,"\""))
-	}else{
-		system(paste0(imageMagick,"convert \"",variable.value,"\" \"",tf,"\""))
-	}
+	image_m <- magick::image_convert( magick::image_read(variable.value),format="png")
 	
-	if(!file.exists(tf)){
-		
-		if(Sys.info()["sysname"]=="Windows"){
-			shell(paste0(imageMagick,"convert \"",file.path(getwd(),variable.value),"\" \"",tf,"\""))
-		}else{
-			system(paste0(imageMagick,"convert \"",file.path(getwd(),variable.value),"\" \"",tf,"\""))
-		}
-	}
+	image_write(image_m,tf)
+
 	
 	# Return the image link
 	return(
@@ -334,18 +312,25 @@ xmlReadData_data.frame <- function(xmlItem, na_to_none=FALSE) {
     # Define table column names   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     table.defs.colnames <- 
       sapply(table.coldefs, function(c) if("name" %in% names(c) ) c["name"] else NA)
-    
+	
+
     # If not all column names have been specified, fill up with string "cellXX", where XX is cell no.
-    if(length(table.defs.colnames) < dim(table.matrix)[2])
-      table.defs.colnames <- c(table.defs.colnames, 
-        paste0("cell", (length(table.defs.colnames)+1):dim(table.matrix)[2]))
+    #if(length(table.defs.colnames) < dim(table.matrix)[2])
+    #  table.defs.colnames <- c(table.defs.colnames, 
+    #    paste0("cell", (length(table.defs.colnames)+1):dim(table.matrix)[2]))
     
     # Set column names to numeric entry, if it has not been specified by the name flag
     table.defs.colnames[is.na(table.defs.colnames)] <- 
       (1:dim(table.matrix)[2])[is.na(table.defs.colnames)]
-    
-    
-    
+
+    table.coldefs <- lapply(1:length(table.coldefs),function(i){
+				value <- table.coldefs[[i]]
+				if(is.na(value["name"])){
+					value <- c("type"=as.character(value),
+							"name"=as.character(table.defs.colnames[i]))
+				}
+				value
+			})
     # Create table ----------------------------------------------------------------------------------
     
     # Create data frame object
