@@ -47,7 +47,6 @@ test_execution(
  ),error=function(e){
     stopifnot(grepl("produced warnings",e))
  })
-
 }
 \seealso{
 \code{\link{do.call}}

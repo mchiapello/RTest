@@ -11,7 +11,10 @@ Authors@R: c(
     )
 Depends: R (>= 3.1.3), testthat (>= 1.0.0), magick(>= 1.3), methods, XML
 Imports: base64, jsonlite, rlang, glue, magrittr, stringr
-Suggests: knitr, rmarkdown
+Suggests: 
+    knitr,
+    rmarkdown,
+    covr
 Description: This provides a framework for R packages developed for
 	a regulatory environment. It is based on the 'testthat' unit testing system and provides the adapter
     functionalities for XML-based test case definition as well as for standardized

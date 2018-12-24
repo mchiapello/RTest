@@ -427,7 +427,7 @@ normalizeDate <- function(
   }
   
   if(asDate) 
-    return(as.Date(d)) 
+    return(as.Date(d,tryFormats = c("%d.%m.%Y","%Y-%m-%d"))) 
   else 
     return(d)
 }

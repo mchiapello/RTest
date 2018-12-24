@@ -211,8 +211,8 @@ RTestCase <- function(
 		# Open and read xml ---------------------------------------------------------------------------
 		
 		#xml.doc  <- xmlTreeParse(xml.fPath, getDTD = F)
-		xml.doc  <- xmlTreeParse(xml.fPath, getDTD = F, 
-				handlers=list("comment"=function(x,...){NULL}), asTree = TRUE)
+		xml.doc  <- xmlTreeParse(xml.fPath, getDTD = F,
+				       handlers = list("comment"=function(x,...){NULL}), asTree = TRUE)
 		xml.root <- xmlRoot(xml.doc)
 		
 		

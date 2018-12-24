@@ -42,13 +42,8 @@ example_image <- function(name="Roche_logo.png"){
 	
 	input <- list.files(find.package("RTest"),recursive = T,pattern="Roche_Logo",full.names=T)[1]
 	
-	if(!grepl("png",name) && !grepl("jpg",name)){
-		output <- file.path(tempdir(),paste0(name,".png"))
 		
-	}else{
-		
-		output <- file.path(tempdir(),name)
-	}
+	output <- file.path(tempdir(),name)
 	
 	file.copy(from = input, to=output,overwrite=T)
 	
