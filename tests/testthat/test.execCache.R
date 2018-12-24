@@ -7,6 +7,7 @@
 library(testthat)
 library(RTest)
 
+
 # - Create a test Adapter function that uses execCache
 setTestMethod(
 		"test.RTest.funct_02", 
@@ -46,9 +47,11 @@ setTestMethod(
 			
 		})
 
+context("execCache")
 test_that("execCache",{
 			
 			global_rep <- get_reporter()
+			
 			# Create test collection
 			testCollection <- new("RTestCollection", 
 					project.name    = "RTest Vignette", 
@@ -58,7 +61,7 @@ test_that("execCache",{
 			
 			# Import test cases from text.execCache.xml
 			testCollection <- importTCsFromDir(testCollection,
-					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),f.pattern="test.execCache.xml")
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),f.pattern="test.execCache.xml")
 			
 			outf <- tempfile(fileext=".html")
 			
@@ -87,7 +90,7 @@ test_that("execSummary",{
 					test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
 			
 			testCollection <- importTCsFromDir(testCollection,
-					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),
 					f.pattern="test.execCache.xml")
 			
 			outf <- tempfile(fileext=".html")

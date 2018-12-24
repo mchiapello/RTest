@@ -131,7 +131,7 @@ test_that("exec_silent_RTest in reporting works",{
 					test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
 			
 			testCollection <- importTCsFromDir(testCollection,
-					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),
 					f.pattern="test.testthat.xml")
 			
 			outf <- tempfile(fileext=".html")

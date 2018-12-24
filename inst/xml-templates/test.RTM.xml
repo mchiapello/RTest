@@ -1,7 +1,7 @@
 <RTestCase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 	xsi:noNamespaceSchemaLocation="../../inst/xsd/RTest.xsd">
-	<ID>RTest_TC-01</ID>
+	<ID>RTest_TC-03</ID>
 	<synopsis>
 		<version>01</version>
 		<author>Matthias Pfeifer</author>
@@ -113,5 +113,8 @@
 			</funct_02>
 			<funct_03></funct_03>
 		</RTest>
+		<secondpackage>
+			<fun_01 spec-id="1" risk-id="2"></fun_01>
+		</secondpackage>
 	</tests>
 </RTestCase>

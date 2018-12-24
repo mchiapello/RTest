@@ -21,16 +21,16 @@ test_that("getRTMInfos single package",{
 			
 			# Import test cases from text.execCache.xml
 			testCollection <- importTCsFromDir(testCollection,
-					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),
 					f.pattern="test.execCache.xml")
 			
 			set_reporter(global_rep)
-			
+
 			expect_equal(
 					RTest:::getRTMInfos(
 					testCollection@collection[[1]]),
 					list(
-							ID="RTest_TC-01",
+							ID="RTest_TC-04",
 							Version="01",
 							Type="RTestCase",
 							sDesc="RTest Template TC",
@@ -53,7 +53,7 @@ test_that("getRTMInfos",{
 			
 			# Import test cases from text.execCache.xml
 			testCollection <- importTCsFromDir(testCollection,
-					xml.dPath = paste0(find.package("RTest"),"/tests/testthat"),
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),
 					f.pattern="test.RTM.xml")
 			
 			set_reporter(global_rep)
@@ -62,7 +62,7 @@ test_that("getRTMInfos",{
 					RTest:::getRTMInfos(
 					testCollection@collection[[1]]),
 					list(
-							ID="RTest_TC-01",
+							ID="RTest_TC-03",
 							Version="01",
 							Type="RTestCase",
 							sDesc="RTest Template TC",

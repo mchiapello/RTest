@@ -40,9 +40,7 @@ as.expectation.logical <- function(x, message, ..., srcref = NULL, info = NULL) 
 #' @param quo an \code{rlang} quo
 #' @param capture A function to derive the output / warnings / messages
 #' 	of the function as e.g. \code{evaluate_promise}
-#' @label \code{character} A label for the evaluated value
-#' @param force_implementation \code{logical} Wheter to use own implementation
-#' 	instead of importing from testthat (just for testing reasons)
+#' @param label \code{character} A label for the evaluated value
 #' @return \code{act} A list including the label (\code{lab}),
 #' 	a caputre of the function (\code{cap}) and the code call
 #'  itself as (\code{..})
