@@ -76,6 +76,20 @@ test_that("expect_silent_RTest function warnings works", {
 			
 		})
 
+test_that("expect_silent_RTest function warnings works with own quasi comp", {
+			
+			options("force_implementation"=TRUE)
+			
+			reporter <- my_reporter()
+			
+			expect_equal(
+					reporter$results$as_list()[[1]]$results[[1]]$message,
+					"`myfun()` produced:\nwarnings1 = 'one'\nwarnings2 = 'two'")
+			
+			options("force_implementation"=FALSE)
+			
+		})
+
 test_that("expect_silent_RTest function outptus works", {
 			
 			global_rep <- get_reporter()
@@ -151,4 +165,16 @@ test_that("exec_silent_RTest in reporting works",{
 					"failed"
 			)
 			
+		})
+		
+test_that("expectation logical",{
+	expect_equal(
+	class(as.expectation.logical(TRUE,message="mymes",info="addon")),
+	c("expectation_success","expectation","condition")
+			
+			)	
+	expect_equal(
+			as.expectation.logical(TRUE,message="mymes",info="addon")$message,
+			"mymes\naddon"
+			)
 		})

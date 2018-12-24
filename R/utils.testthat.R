@@ -41,7 +41,8 @@ as.expectation.logical <- function(x, message, ..., srcref = NULL, info = NULL) 
 #' @param capture A function to derive the output / warnings / messages
 #' 	of the function as e.g. \code{evaluate_promise}
 #' @label \code{character} A label for the evaluated value
-#' 
+#' @param force_implementation \code{logical} Wheter to use own implementation
+#' 	instead of importing from testthat (just for testing reasons)
 #' @return \code{act} A list including the label (\code{lab}),
 #' 	a caputre of the function (\code{cap}) and the code call
 #'  itself as (\code{..})
@@ -49,12 +50,18 @@ as.expectation.logical <- function(x, message, ..., srcref = NULL, info = NULL) 
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de})
 quasi_capture <- function(quo, capture, label = NULL) {
 	
+	force_implementation <- if(!is.null(options("force_implementation")[[1]])){
+		as.logical(options("force_implementation"))
+	}else{
+		FALSE
+	}
+	
 	# In case quasi_capture is existing as a function
 	# from testthat (>2.0)
 	if(as.numeric(
 					stringr::str_extract(
 							as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
-			2){
+			2 && !force_implementation){
 		
 		# Import quasi capture from testthat
 		`%:::%` = function(pkg, fun) get(fun, envir = asNamespace(pkg),
@@ -65,10 +72,11 @@ quasi_capture <- function(quo, capture, label = NULL) {
 		return(quasi_capture(quo=quo,capture=capture,label=label))
 	}else{
 		
+		`%||%` = rlang::`%||%`
 		# quasi capture source code from testthat 2.0.0.9000
 		act <- list()
 		act$lab <- label %||% rlang::quo_label(quo)
-		act$cap <- capture(act$val <- rlang::eval_bare(get_expr(quo), get_env(quo)))
+		act$cap <- capture(act$val <- rlang::eval_bare(rlang::get_expr(quo), rlang::get_env(quo)))
 		return(act)
 		
 	}
@@ -89,7 +97,8 @@ quasi_capture <- function(quo, capture, label = NULL) {
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 expect_silent_RTest <- function(object) {
 	
-	act <- quasi_capture(rlang::enquo(object),
+	act <- quasi_capture(
+			rlang::enquo(object),
 			testthat::evaluate_promise)
 
 	outputs <- c(
