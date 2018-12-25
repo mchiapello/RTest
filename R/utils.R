@@ -464,3 +464,19 @@ htmlify_string <- function(input_string){
 	
 }
 
+#' function to derive external package functionalities
+#' 
+#' @param x \code{character} package :: function string
+#' 
+#' @return functionality of the wanted function
+#' 
+#' found at 
+#' https://stackoverflow.com/questions/38983179/do-call-a-function-in-r-without-loading-the-package
+getfun<-function(x) {
+	if(length(grep("::", x))>0) {
+		parts<-strsplit(x, "::")[[1]]
+		getExportedValue(parts[1], parts[2])
+	} else {
+		x
+	}
+}

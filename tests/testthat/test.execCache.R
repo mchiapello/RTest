@@ -39,9 +39,23 @@ setTestMethod(
 		"test.RTest.funct_03", 
 		signature  = "RTestCase",
 		definition = function(object, inputData, execCache, xmlDef, ...) {
+			# Return result (will be cached)
+			return(NULL)
 			
+		})
+
+# Create a Test Function that just compares to 5
+setTestMethod(
+		"test.RTest.funct_04", 
+		signature  = "RTestCase",
+		definition = function(object, inputData, execCache, xmlDef, ...) {
 			#result <- execCache$funct_01[[1]]
-			
+			#result <- execCache$funct_01[[1]]
+			test_returnValue_variable(
+					5, 
+					xmlReadData_variable(xmlDef[["reference"]][[1]]), 
+					xmlDef[["testspec"]][["return-value"]]
+			)   
 			# Return result (will be cached)
 			return(NULL)
 			
@@ -123,4 +137,32 @@ test_that("execSummary",{
 		})
 
 
-
+test_that("exec comparison less_than",{
+			
+			global_rep <- get_reporter()
+			# Create test collection
+			testCollection <- new("RTestCollection", 
+					project.name    = "RTest Vignette", 
+					project.details = "Example test exectuion",
+					tester          = "Example tester",
+					test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+			
+			testCollection <- importTCsFromDir(testCollection,
+					xml.dPath = paste0(find.package("RTest"),"/xml-templates"),
+					f.pattern="test.execCache2.xml")
+			
+			outf <- tempfile(fileext=".html")
+			
+			# Execute all tests
+			testCollection <- exec(testCollection, out.fPath = outf, open=FALSE)
+			
+			set_reporter(global_rep)
+			
+			expect_output(
+					RTest:::getExecSummary(
+							testCollection@collection[[1]]),
+					regexp = "success"
+			)
+			
+		})
+		

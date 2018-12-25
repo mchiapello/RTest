@@ -58,8 +58,11 @@
 #'  })
 #' @importFrom utils packageVersion
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
-test_execution <- function(what, args, xmlTestSpec, ...) {
+test_execution <- function(what, args, xmlTestSpec=NULL, ...) {
   
+  if(is.null(xmlTestSpec)){
+	  xmlTestSpec <- XML::xmlNode("execution",attrs=c("execution-type"="silent"))
+  }	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
   # Global settings of the test -------------------------------------------------------------------
@@ -76,7 +79,8 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
               "output"  = paste("Execute function with output.",paste0("(",what,")")),
               "message" = paste("Execute function with message(s).",paste0("(",what,")")),
               "warning" = paste("Execute function with warning(s).",paste0("(",what,")")),
-              "error"   = paste("Execute function with error(s).",paste0("(",what,")"))
+              "error"   = paste("Execute function with error(s).",paste0("(",what,")")),
+			  stop("Test type '",test.type,"' not implemented.")
           ))
   
   #  message(test.name)
@@ -87,6 +91,12 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
   # Initialize variable to store result of computation
   result <- NULL
   
+  force_implementation <- if(!is.null(options("force_implementation")[[1]])){
+			  as.logical(options("force_implementation"))
+		  }else{
+			  FALSE
+		  }
+  
   test_that(test.name, {
         # Check different execution types.... 
         if(test.type == "silent") {
@@ -94,7 +104,7 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
 		  if(as.numeric(
 				stringr::str_extract(
 						as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
-				  2){
+				  2 && !force_implementation){
 			  expect_silent_RTest(
 	              result <<- do.call(what = what, args = args, ...)
 	          )
@@ -128,8 +138,6 @@ test_execution <- function(what, args, xmlTestSpec, ...) {
               result <<- do.call(what = what, args = args, ...)
           )
           
-        } else {
-          stop("Test type '",test.type,"' not implemented.")
         }
       })
   
@@ -273,7 +281,7 @@ test_returnValue_variable <- function(result, reference, xmlTestSpec, add.desc =
             },
             "less_than" = {
               do.call(
-                  "expect_less_than", 
+                  "expect_lt", 
                   list(
                       object    = rec, 
                       expected  = exp, 
@@ -290,7 +298,7 @@ test_returnValue_variable <- function(result, reference, xmlTestSpec, add.desc =
             },
             "more_than" = {
               do.call(
-                  "expect_more_than", 
+                  "expect_gt", 
                   list(
                       object    = rec, 
                       expected  = exp,

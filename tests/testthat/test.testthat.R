@@ -178,3 +178,47 @@ test_that("expectation logical",{
 			"mymes\naddon"
 			)
 		})
+
+#............................. Greater LOWER ................................................
+
+test_that("expect_less_than",{
+			
+			expect_silent(
+					RTest:::expect_less_than(5,5.1)
+					)
+			expect_error(
+					RTest:::expect_less_than(5,4.9)
+					
+					)
+		})
+test_that("expect_more_than",{
+			options("force_implementation"=NULL)
+			
+			expect_silent(
+					RTest:::expect_more_than(5,4.9)
+					)
+			expect_error(
+					RTest:::expect_more_than(5,5.1)
+					)
+		})
+
+test_that("expect_more_than old testthat",{
+			options("force_implementation"=TRUE)
+			
+			expect_warning(
+			
+					RTest:::expect_gt(5,4.9)
+					)
+			options("force_implementation"=FALSE)
+		})
+
+test_that("expect_less_than old testthat",{
+			options("force_implementation"=TRUE)
+			
+			expect_warning(
+			
+					RTest:::expect_lt(5,5.1)
+					)
+			options("force_implementation"=FALSE)
+		})
+

@@ -120,3 +120,57 @@ expect_silent_RTest <- function(object) {
 	
 	invisible(act$cap$result)
 }
+
+
+#'@rdname expect_less_more
+expect_less_than <- function(...){
+	expect_lt(...)
+} 
+
+#'@rdname expect_less_more
+expect_more_than <- function(...){
+	expect_gt(...)
+} 
+
+#'@rdname expect_less_more
+expect_lt <- function(...){
+	force_implementation <- if(!is.null(options("force_implementation")[[1]])){
+				as.logical(options("force_implementation"))
+			}else{
+				FALSE
+			}
+	
+	if(as.numeric(
+					stringr::str_extract(
+							as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
+			2 && !force_implementation){
+		a <- list(...)
+		a$info <- NULL
+		do.call(getfun("testthat::expect_lt"),a)
+		
+	}else{
+		testthat::expect_less_than(...)
+	}
+}
+#'@name expect_less_more
+#'@aliases expect_gt
+#'@param ... Any parameter sent to expect_gt or expect_lt of testthat
+#'@rdname expect_less_more
+expect_gt <- function(...){
+	force_implementation <- if(!is.null(options("force_implementation")[[1]])){
+				as.logical(options("force_implementation"))
+			}else{
+				FALSE
+			}
+	
+	if(as.numeric(
+					stringr::str_extract(
+							as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
+			2 && !force_implementation){
+		a <- list(...)
+		a$info <- NULL
+		do.call(getfun("testthat::expect_gt"),a)
+	}else{
+		testthat::expect_more_than(...)
+	}
+}
