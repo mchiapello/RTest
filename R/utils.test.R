@@ -384,7 +384,6 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
 	}	
   test.attrs <- xmlAttrs(xmlTestSpec)
   
-  
   # Global settings of the test -------------------------------------------------------------------
   
   # Get the global settings of the test from the current XML definition. These are mendatory and
@@ -395,8 +394,7 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
       ifelse("desc" %in% names(test.attrs), 
           test.attrs[["desc"]], "Check return value (variable).")
   
-  if(!is.null(add.desc))
-    test.name <- paste0(add.desc," ",test.name)
+  if(!is.null(add.desc)) test.name <- paste0(add.desc," ",test.name)
   
   test.diffType  <- 
       ifelse("diff-type" %in% names(test.attrs),
@@ -411,7 +409,7 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
           as.numeric(test.attrs[["tolerance"]]), 1.5e-8) 
   
   # Get the entries and settings from the reference vector ----------------------------------------  
-  
+	
   elems <- lapply(1:length(reference), 
       function(i) {
         
@@ -441,14 +439,11 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
           
           name      <- attrs[["name"]]
           
-          if("diff-type" %in% names(attrs))
-            elems[[name]][["diffType"]] <<- attrs[["diff-type"]]
+          if("diff-type" %in% names(attrs)) elems[[name]][["diffType"]] <<- attrs[["diff-type"]]
           
-          if("compare-type" %in% names(attrs))
-            elems[[name]][["compareType"]] <<- attrs[["compare-type"]]
+          if("compare-type" %in% names(attrs)) elems[[name]][["compareType"]] <<- attrs[["compare-type"]]
           
-          if("tolerance" %in% names(attrs)) 
-            elems[[name]][["tolerance"]] <<- as.numeric(attrs[["tolerance"]])
+          if("tolerance" %in% names(attrs)) elems[[name]][["tolerance"]] <<- as.numeric(attrs[["tolerance"]])
         })
   }
   
@@ -507,11 +502,17 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
             sapply(1:length(reference), function(i) {
                   elem <- elems[[i]]
                   
-                  # Get data
-                  rec <- unname(result[elem$name])
-                  exp <- unname(reference[elem$name])
-                  
-                  # Get data types
+				  if(!is.na(unname(result[elem$name]))){
+					  # Get data
+					  rec <- unname(result[elem$name])
+					  exp <- unname(reference[elem$name])
+				  }else{
+					  # Get data
+					  rec <- unname(result[i])
+					  exp <- unname(reference[i])
+				  }
+
+				  # Get data types
                   rec.type <- typeof(rec)
                   exp.type <- typeof(exp)
                   
@@ -521,8 +522,7 @@ test_returnValue_vector_elementbyelement <- function(result, reference, xmlTestS
                   
                   # Tolerance set to very small number, like in all.equal (which is used by testthat) 
                   #     https://stat.ethz.ch/R-manual/R-devel/library/base/html/all.equal.html
-                  if(elem$tolerance == 0)
-                    elem$tolerance <- 1.5e-8
+                  if(elem$tolerance == 0) elem$tolerance <- 1.5e-8
                   
                   test.info <- list(
                       Test               = "Equal Value",
@@ -1059,7 +1059,7 @@ test_returnValue_data.frame_shape <- function(result, reference, xmlTestSpec, ad
   
   if(!is.null(add.desc))
     test.name <- paste0(add.desc," ",test.name)
-  print(test.name)
+
   test.diffType  <- 
       ifelse("diff-type" %in% names(test.attrs),
           test.attrs[["diff-type"]], "absolute")
@@ -1116,36 +1116,6 @@ test_returnValue_data.frame_shape <- function(result, reference, xmlTestSpec, ad
         
         exp.rownames <- rownames(reference)
         rec.rownames <- rownames(result)
-        
-        # Get data types
-        exp.colTypes <- sapply(1:exp.ncols, function(i) {
-              type <- typeof(reference[[i]])
-              if(type=="integer"){
-                if(grepl("Factor",capture.output(str(reference[[i]])))){
-                  "factor"
-                }else{
-                  type
-                }
-              }else{
-                type
-              }
-            }
-        )  
-        
-        
-        rec.colTypes <- sapply(1:rec.ncols, function(i) {
-              type <- typeof(reference[[i]])
-              if(type=="integer"){
-                if(grepl("Factor",capture.output(str(reference[[i]])))){
-                  "factor"
-                }else{
-                  type
-                }
-              }else{
-                type
-              }
-            }
-        )  
         
         test.info.dims <- paste0(
             "{", 

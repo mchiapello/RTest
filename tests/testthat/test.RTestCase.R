@@ -39,6 +39,18 @@ test_that("RTestCase initialize",{
 							xml.fPath = "",
 							xml.root = XML::xmlNode("empty")
 					) %>% RTest:::getTestFor(),"mypackage")
+			expect_equal(		
+					RTestCase(
+							ID                = "TC01",
+							tc.type           = "mytest" ,
+							synopsis          = list(),
+							input.data        = list(one=data.frame(x=c(1,2))),
+							tests             = new.env(),
+							test.for          = "mypackage",
+							test.result       = NULL,
+							xml.fPath = "",
+							xml.root = XML::xmlNode("empty")
+					) %>% RTest:::getExecDetails.html(),c())
 			
 			
 		

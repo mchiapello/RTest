@@ -1,5 +1,5 @@
 ---
-title: Test Adapter example
+title: RTest -  Test Adapter example
 output:
   pdf_document
 author: "[Sebastian Wolf](mailto:sebastian@mail-wolf.de)"

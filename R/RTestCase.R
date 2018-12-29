@@ -1469,7 +1469,7 @@ setMethod("getExecDetails.html",
     tc.ID <- getID(object)
     
     
-    if(is.na(object@test.result))
+    if(is.null(object@test.result) || is.na(object@test.result))
       return(c())
     #stop("This test case has not been executed!")
     
