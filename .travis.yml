@@ -1,8 +1,12 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
+env:
+  - PKG_TARBALL=RTest_1.2.3.tar.gz
 sudo: false
-cache: packages
+cache:
+ - packages
+ - apt: true
 pandoc_version: 1.19.2.1
 r_github_packages:
   - r-lib/covr
@@ -33,5 +37,6 @@ script:
 - xvfb-run R CMD check *tar.gz --as-cran
  
 after_success:
+  - tar -C .. -xf $PKG_TARBALL
   - xvfb-run Rscript -e 'covr::coveralls(type=c("vignettes","tests","examples"))'
  
