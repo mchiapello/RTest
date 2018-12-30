@@ -92,7 +92,7 @@ importFrom("utils", "capture.output", "ls.str", "sessionInfo", "str",
 importFrom("magick", "image_compare","image_read","image_write")
 importFrom("glue", "glue","glue_collapse")
 importFrom("rlang", "enquo", "quo_label", "eval_bare")
-importFrom("utils", "packageVersion")
+importFrom("utils", "packageVersion", "assignInNamespace")
 
 
 # Exported classes and corresponding methods ######################################################

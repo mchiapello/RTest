@@ -207,7 +207,7 @@ test_that("RTestCollection write HTML summary",{
 	)
 	expect_error(
 			
-			writeExecSummary.html(testCollection, out.fPath = tempfile())
+			writeExecSummary.html(testCollection, out.fPath = tempfile(fileext=".html"),open=F)
 	)
 	
 	expect_silent(testCollection <- importTC(testCollection,
@@ -218,16 +218,17 @@ test_that("RTestCollection write HTML summary",{
 	set_reporter(global_rep)
 	expect_silent(
 			
-			writeExecSummary.html(testCollection, out.fPath = tempfile())
+			writeExecSummary.html(testCollection, out.fPath = tempfile(fileext=".html"),open=F)
 	)
 	
 	# Execute Test Case
 	set_reporter(intern_reporter)
-	testCollection <- exec(testCollection, out.fPath = tempfile(), open=FALSE)
+	testCollection <- exec(testCollection, out.fPath = tempfile(fileext=".html"), open=FALSE)
 	set_reporter(global_rep)
 	
 	expect_silent(
-			writeExecSummary.html(testCollection, out.fPath = tempfile(),
+			writeExecSummary.html(testCollection,
+					out.fPath = tempfile(fileext=".html"),
 					logo= file.path(find.package("RTest"),
 							"images/Roche_Logo_defect.png"
 					),

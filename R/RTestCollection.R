@@ -99,6 +99,20 @@ setMethod("exec",
 		
 		definition = function (object, test.TCs = NULL, test.for = NULL, out.fPath = NULL, open = TRUE, ...) {
 			
+			if(as.numeric(stringr::str_extract(
+									as.character(packageVersion("testthat")),"[0-9]{1,2}\\.[0-9]{1,2}")) >=
+					2){
+				
+				# Changing as.expectation.logical as for testthat>=2.0 it's
+				# not producing the reporting we need for pretty reports
+				tryCatch(
+						assignInNamespace("as.expectation.logical", RTest::as.expectation.logical,
+						ns="testthat", pos="package:testthat"),error=function(e){})
+				
+				#unlockBinding("as.expectation.logical", as.environment("package:testthat")) 
+				#assign("as.expectation.logical", RTest::as.expectation.logical, "package:testthat")
+			}
+			
 			# Initialize the list of TCs to perform -------------------------------------------------------
 			test.TCs <- getValidTCs(object, test.TCs)
 			
