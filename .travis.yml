@@ -27,6 +27,5 @@ addons:
       - qpdf
       
 after_success:
-  - R -e 'covr::codecov(type = "all")'
-  - Rscript -e 'covr::coveralls()'
+  - Rscript -e 'covr::coveralls(type=c("vignettes","tests","examples")'
  
