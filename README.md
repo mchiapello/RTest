@@ -12,7 +12,33 @@ This provides a framework for R packages developed for a regulatory environment.
 
 # Features #
 
+**Main features**
+* Human readible tests - `XML` based - [example](https://github.com/zappingseb/RTest/blob/master/inst/xml-templates/RTest_TC-generic.xml)
+* Human readible test reports - `html` websites [example](https://zappingseb.github.io/RTest/articles/RTest_TC-generic_result.html)
+* High code coverage - [codecov](https://codecov.io/gh/zappingseb/RTest)
 
+---
+**Test types**
+* Image comparison  - `html` websites [example](https://zappingseb.github.io/RTest/articles/RTest_TC-generic_result.html#TC-RTest_TC-generic-RTest_2-example_image)
+* Data frame element wise comparison
+* List element wise comparison
+* Variables
+* Vectors
+
+---
+
+**Test Report**
+* Full package dependency logging in Test reports
+* Full system environment logging in test reports
+
+---
+
+**For who?**
+
+* Everybody working in a regulated field
+* Everybody who has testers that cannot code
+* Everybody that needs pretty test reports
+* Everybody who wants to perform end-to-end tests
 
 # Get Started #
 
