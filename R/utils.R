@@ -51,7 +51,7 @@ RTest.execute <- function(
 	options("RTest_verbose" = TRUE)
 	
 	unlockBinding("as.expectation.logical", as.environment("package:testthat")) 
-	assign("as.expectation.logical", as.expectation.logical, "package:testthat")
+	assign("as.expectation.logical", RTest::as.expectation.logical, "package:testthat")
 
     # Create test collection
 	testCollection <- new(
