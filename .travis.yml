@@ -4,7 +4,6 @@ language: R
 sudo: false
 cache: packages
 pandoc_version: 1.19.2.1
-r_build_args: --compact-vignetes=gs+qpdf
 addons:
   apt:
     update: true
@@ -25,7 +24,11 @@ addons:
       - cargo
       - libgs-dev
       - qpdf
-      
+
+script:
+- R CMD build . --compact-vignettes=gs+qpdf
+- xvfb-run R CMD check *tar.gz --as-cran
+ 
 after_success:
   - Rscript -e 'covr::coveralls(type=c("vignettes","tests","examples")'
  
