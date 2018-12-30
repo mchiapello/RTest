@@ -4,6 +4,7 @@ language: R
 sudo: false
 cache: packages
 pandoc_version: 1.19.2.1
+r_build_args: --compact-vignetes=gs+qpdf
 addons:
   apt:
     update: true
@@ -22,7 +23,10 @@ addons:
       - r-cran-rgdal
       - libfftw3-dev
       - cargo
+      - libgs-dev
+      - qpdf
       
 after_success:
+  - R -e 'covr::codecov(type = "all")'
   - Rscript -e 'covr::coveralls()'
-  
+ 

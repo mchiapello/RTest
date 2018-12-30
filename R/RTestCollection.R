@@ -760,8 +760,13 @@ setMethod("writeExecSummary.html",
       
       RTest.cat("HTML summary written to file '",out.fPath,"'.\n\n")
       
-      if(open)
-        shell.exec(out.fPath)
+      if(open){
+		 if(Sys.info()["sysname"]=="Windows"){
+			 shell.exec(out.fPath)
+		 }else{
+			 system(paste("open",out.fPath))
+		 }
+	 }
     }
 )
 
