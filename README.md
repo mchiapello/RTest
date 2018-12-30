@@ -88,6 +88,6 @@ But the major point is the variable report output which looks like this:
 And that's the whole principle of RTest. You can generate human-readible tests and get human-readible reports by
 
 * Generating XML test cases
-* Running `RTEst.execute`
+* Running `RTest.execute`
 * Reading the output `.html` report
 
