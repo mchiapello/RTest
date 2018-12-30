@@ -365,11 +365,11 @@ test_that("xmlWriteData_variable",{
 			RTest:::xmlWriteData_variable(data=NULL,printXML=F, name=1)
 			)
 			expect_equal(
-					"<variable value=\"123.93832466234799\" type=\"numeric\" name=\"1\"/>",
-					RTest:::xmlWriteData_variable(printXML=F, name=1,data=123.938324662348)
+					"<variable value=\"123.938324662\" type=\"numeric\" name=\"1\"/>",
+					RTest:::xmlWriteData_variable(printXML=F, name=1,data=123.938324662)
 			)
 			expect_output(
-					RTest:::xmlWriteData_variable(printXML=T, name=1,data=123.938324662348)
+					RTest:::xmlWriteData_variable(printXML=T, name=1,data=123.938324662)
 					)
 		})
 
