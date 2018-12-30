@@ -622,15 +622,14 @@ xmlWriteData_variable <- function(elemname = "variable", data, name = NULL, prin
   
   stopifnot(class(data) %in% c("integer", "numeric", "character", "logical", "NULL"))
   
-  
-  # Generate XML ----------------------------------------------------------------------------------
+ # Generate XML ----------------------------------------------------------------------------------
   if(is.null(name)){
     xml <- paste0("<",elemname," value=\"", 
-        if(is.numeric(data)) format(data, digits = 22) else data,
+        if(is.numeric(data)) format(as.character(data),digits=22) else data,
          "\" type=\"", data.class, "\"/>")
   } else {
     xml <- paste0("<",elemname," value=\"", 
-        if(is.numeric(data)) format(data, digits = 22) else data,
+        if(is.numeric(data)) format(as.character(data),digits=22)  else data,
         "\" type=\"", data.class,"\" name=\"",name,"\"/>")
   }
   
