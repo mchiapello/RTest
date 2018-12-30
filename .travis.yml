@@ -38,7 +38,7 @@ script:
  
 after_success:
   - tar -C .. -xf $PKG_TARBALL
-  - xvfb-run Rscript -e "covr::codecov(type=c("vignettes","tests","examples"))"
+  - xvfb-run Rscript -e 'covr::codecov(type=c("tests", "vignettes", "examples"))'
   - xvfb-run Rscript -e 'covr::coveralls(type=c("vignettes","tests","examples"),service_name="travis-pro")'
 
 deploy:
