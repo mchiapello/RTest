@@ -26,6 +26,7 @@ addons:
       - cargo
       - libgs-dev
       - qpdf
+      - ghostscript
 
 script:
 - R CMD build . --compact-vignettes=gs+qpdf
