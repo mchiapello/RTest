@@ -86,6 +86,8 @@ example_list <- function(name_1 = "NAME1",value_2 = 1){
 #'  parameter \code{name_1} and an item with the name "NAME2"
 #'  and the value of \code{value_2} inside.
 #' 
+#' @name example_list_large
+#' 
 #' @export
 #' @author Sebastian Wolf \email{sebastian@@mail-wolf.de}
 example_list_large <- function(name_1 = "NAME1",value_2 = 1){
