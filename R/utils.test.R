@@ -1418,6 +1418,12 @@ test_returnValue_list_nodebynode <- function(result, reference, xmlTestSpec, add
 test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc = NULL,
     openrecexp = NULL, openrecexp.exec = FALSE) 
 {
+	testmode <- if(!is.null(options("testmode")[[1]])){
+				as.logical(options("testmode"))
+			}else{
+				FALSE
+			}
+	
 	if(is.null(xmlTestSpec)){
 		xmlTestSpec <- xmlNode("return-value",attrs=list("compare-type"="equal"))
 	}	
@@ -1463,10 +1469,10 @@ test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc 
 	        tmp <- getwd()
 	        setwd(result)
 			
-			if(Sys.info()["sysname"]=="Windows")shell.exec(".")
+			if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(".")
 	        setwd(tmp)        
 	      } else {
-			  if(Sys.info()["sysname"]=="Windows")shell.exec(result)
+			  if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(result)
 	      }
 	  }else{
 		  cat("RESULT:\n")
@@ -1477,7 +1483,7 @@ test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc 
       cat(reference.txt,"\n")
       
       if(refisfile)
-		  if(Sys.info()["sysname"]=="Windows")shell.exec(reference)
+		  if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(reference)
       
       cat("\n\n-----------------------------------------------------\n\n")
     }

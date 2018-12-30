@@ -84,8 +84,7 @@ xmlReadData_variable <- function(xmlItem) {
 #'			)
 #' item <- XML::xmlRoot(XML::xmlParse(data,asText=TRUE))
 #' value <- RTest::xmlReadData_image(item)
-#' print("The Roche Logo opens")
-#' system(paste0("open ",value$address))
+#' stopifnot(grepl("png",value$address))
 #' 
 #' @export 
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
@@ -111,11 +110,11 @@ xmlReadData_image <- function(xmlItem) {
 	# Cast the type variable
 	variable.value <-  as.character(variable.value)
 	
-	tf <- paste0(tempfile(),".png")
+	tf <- paste0(tempfile(fileext=".png"))
 	
 	image_m <- magick::image_convert( magick::image_read(variable.value),format="png")
 	
-	image_write(image_m,tf)
+	image_write(image_m, tf)
 
 	
 	# Return the image link

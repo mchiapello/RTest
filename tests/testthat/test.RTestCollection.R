@@ -232,7 +232,7 @@ test_that("RTestCollection write HTML summary",{
 					logo= file.path(find.package("RTest"),
 							"images/Roche_Logo_defect.png"
 					),
-					open=T
+					open=FALSE
 			)
 	)
 })
