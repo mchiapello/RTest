@@ -274,7 +274,7 @@ test_that("RTestCollection getRTM",{
 	
 	expect_equal(
 			rtm_result,
-			getRTM(testCollection),
+			getRTM(testCollection)
 			)
 	expect_silent(testCollection <- importTC(testCollection,
 					xml.fPath = file.path(find.package("RTest"),
