@@ -82,7 +82,60 @@ test_that("normalizeDate",{
 test_that("getfun",{
 			abc_fun <<- function(x){"abc"}
 			expect_equal(
-					getfun("abc_fun"),
+					RTest:::getfun("abc_fun"),
 					"abc_fun")
 			
 		})
+#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------
+
+#example_list_large 
+test_that("example_list_large",{
+		
+		expect_equal(
+				"VALUE1",
+				RTest:::example_list_large()[["NAME1"]]
+				)
+		expect_warning(
+				RTest:::example_list_large()[["NAME1"]]
+				
+				)
+		}
+		)
+		
+##################################################################################################
+
+# - 	arguments_creator
+
+##################################################################################################
+
+
+context("test-adapter generic")
+
+test_that("arguments_creator throws error",{
+			
+			expect_error(
+					
+					RTest:::arguments_creator
+							(parameters_xml_definition = list("RTestData_input_data"=list())
+							, input_data=NULL)
+			)
+			
+		})
+
+##################################################################################################
+
+# - 	get_existence_of_fun
+
+##################################################################################################
+test_that("get_existence_of_fun",{
+	expect_error(
+			RTest:::get_existence_of_fun("myfun","testthat")
+	)
+	
+	expect_equal(
+			RTest:::get_existence_of_fun("normalise_names","testthat"),
+			"package"
+	)
+})

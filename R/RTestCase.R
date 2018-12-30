@@ -1744,8 +1744,8 @@ setMethod("getExecDetails.html",
                           
                           i.expec         <- 1
                           i.expec.written <- 1
-                          
-                          lapply(repores$results, function(expec) {
+
+						  lapply(repores$results, function(expec) {
                               out.test <- ""
                               
                               if(i.expec %% 50 == 0) {
@@ -1780,7 +1780,6 @@ setMethod("getExecDetails.html",
 #                                message("\n* expec.msg.array\n")
 #                                print(expec.msg.array)
 #                                message("\n***\n")
-#                                browser()
                                 if(length(expec.msg.array) <= 1) {
                                   expec.msg.main <- expec.msg
                                   expec.msg.info <- c(
@@ -1800,8 +1799,8 @@ setMethod("getExecDetails.html",
 											  inherits = FALSE)
 								  fromJSON_string <-  "jsonlite" %:::% "fromJSON_string"
 
-								  if(grepl("^\\{.*\\}$", expec.msg.array[length(expec.msg.array)])) {
-                                    expec.msg.info <- expec.msg.array[length(expec.msg.array)]
+								  if(grepl("\\{.*\\}", expec.msg.array[length(expec.msg.array)])) {
+                                    expec.msg.info <- stringr::str_extract(expec.msg.array[length(expec.msg.array)],"\\{.*\\}") 
                                     expec.msg.info <- fromJSON_string(expec.msg.info)
                                     expec.msg.others <- expec.msg.others[1:(length(expec.msg.others)-1)]
                                   } else {
@@ -1898,7 +1897,7 @@ setMethod("getExecDetails.html",
                               i.expec <<- i.expec + 1
                               
                             })
-                          
+                          # End of lapply(repores$results)
                           out.append("                </table>")
                           
                           out.append("              </td>")

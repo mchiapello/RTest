@@ -1,0 +1,5 @@
+^codecov\.yml$
+^\.travis\.yml$
+^_devel/*
+^_devel
+^build

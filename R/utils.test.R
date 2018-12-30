@@ -1415,7 +1415,7 @@ test_returnValue_list_nodebynode <- function(result, reference, xmlTestSpec, add
 #' @seealso \code{\link[XML]{XMLNode-class}}
 #' 
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
-test_manualCheck_file <- function(result, reference, xmlTestSpec, add.desc = NULL,
+test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc = NULL,
     openrecexp = NULL, openrecexp.exec = FALSE) 
 {
 	if(is.null(xmlTestSpec)){
@@ -1454,17 +1454,23 @@ test_manualCheck_file <- function(result, reference, xmlTestSpec, add.desc = NUL
     openrecexp <- function() {
       cat("\n\n-----------------------------------------------------\n\n")
       
-      cat("RESULT:\n")
-      cat(result,"\n")
-      
-      if(file.info(result)$isdir) {
-        tmp <- getwd()
-        setwd(result)
-        shell.exec(".")
-        setwd(tmp)        
-      } else {
-        shell.exec(result)
-      }
+	 if( file.exists(result) ){
+		  
+	      cat("RESULT:\n")
+	      cat(result,"\n")
+	      
+	      if(file.info(result)$isdir) {
+	        tmp <- getwd()
+	        setwd(result)
+	        shell.exec(".")
+	        setwd(tmp)        
+	      } else {
+	        shell.exec(result)
+	      }
+	  }else{
+		  cat("RESULT:\n")
+		  cat("not existing")
+	  }
       
       cat("REFERENCE:\n")
       cat(reference.txt,"\n")
@@ -1544,6 +1550,11 @@ test_manualCheck_confirmWindow <- function(openrecexp = NULL, expectedTxt = NULL
     stop("Package 'tcltk' is needed for this function to work. Please install it.", call. = FALSE)
   }
   
+  testmode <- if(!is.null(options("testmode")[[1]])){
+	  as.logical(options("testmode"))
+  }else{
+	  FALSE
+  }
   
   # Initalize variable to store user decisionresult 
   result <- NA
@@ -1612,11 +1623,16 @@ test_manualCheck_confirmWindow <- function(openrecexp = NULL, expectedTxt = NULL
   # Focus on current window
   tcltk::tkfocus(win)
   
-  
-  # Wait on user interaction (i.e. until variable 'result' is set)
-  while(is.na(result)){ Sys.sleep(5) }
-  
-  return(list(result = result, comment = tcltk::tclvalue(comment)))  
+  if(testmode){
+	  tcltk::tkdestroy(win)
+	  return(list(result = TRUE, comment = "TRUE by testmode"))
+  }else{
+	  
+	  # Wait on user interaction (i.e. until variable 'result' is set)
+	  while(is.na(result)){ Sys.sleep(5) }
+	  
+	  return(list(result = result, comment = tcltk::tclvalue(comment)))  
+  }
 }
 
 # test_returnValue_variable #######################################################################
@@ -1769,9 +1785,10 @@ test_returnValue_image <- function(result, reference, xmlTestSpec, add.desc = NU
 #        )
 				
 		image_compared <- magick::image_compare(
-				image=magick::image_read(result),
-				reference_image = magick::image_read(reference),
+				image=magick::image_read(rec),
+				reference_image = magick::image_read(exp),
 				metric = "RMSE")
+		
 		difference_in_percent <- attributes(image_compared)$distortion
 
 		magick::image_write(
@@ -1791,8 +1808,9 @@ test_returnValue_image <- function(result, reference, xmlTestSpec, add.desc = NU
             sprintf("<img width=200 src='%s' alt='%s' />",
                 src,
                 paste0(gsub(":","_",gsub(c(" "),"_",date()))))
-        
-        switch(test.compareType,
+		
+		
+		switch(test.compareType,
             "equal" = {
               do.call(
                   "expect_equal", 

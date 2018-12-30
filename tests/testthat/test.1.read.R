@@ -272,3 +272,4 @@ test_that("xmlReadData toList",{
 			expect_equal(
 					xmlReadData_to_list(item)[["islist"]][["myvar1"]],1)
 		})
+
