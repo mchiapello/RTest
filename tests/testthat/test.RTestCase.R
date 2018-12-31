@@ -51,7 +51,14 @@ test_that("RTestCase initialize",{
 							xml.fPath = "",
 							xml.root = XML::xmlNode("empty")
 					) %>% RTest:::getExecDetails.html(),c())
-		
+			expect_silent(
+					RTestCase(
+							xml.fPath = file.path(
+									find.package("RTest"),
+									"xml-templates/RTest_medium.xml"
+									)
+							)
+					)
 		})
 
 context("large test case")

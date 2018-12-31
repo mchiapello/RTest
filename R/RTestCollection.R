@@ -228,7 +228,6 @@ setMethod("importTC",
       # Get element name of first node
       tc.adapter <- xmlName(tc.xmlRoot)
       
-      
       # Check if adapter exists - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
       tryCatch(
           { getClass("RTestCollection"); },
@@ -238,8 +237,8 @@ setMethod("importTC",
       
       # Create new instance of RTestCase class  - - - - - - - - - - - - - - - - - - - - - - - - - - -
       RTest.cat("Create new TC using adapter definition '",tc.adapter,"'.")
-      
-      tc <- tryCatch(
+
+	  tc <- tryCatch(
 			  do.call(
           what = tc.adapter,
 		  args=list(

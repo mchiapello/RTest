@@ -57,8 +57,8 @@ RTest.execute <- function(
 			project.details = project.details,
 			tester          = project.tester,
 			test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
-	
-    # Import TCs
+
+	# Import TCs
 	testCollection <- importTCsFromDir(testCollection,
 			xml.dPath = testcase.directory,
 			f.pattern	= f.pattern)

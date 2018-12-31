@@ -215,7 +215,6 @@ RTestCase <- function(
 				       handlers = list("comment"=function(x,...){NULL}), asTree = TRUE)
 		xml.root <- xmlRoot(xml.doc)
 		
-		
 		# Initialize slots ----------------------------------------------------------------------------
 		
 		# XML information - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -240,35 +239,49 @@ RTestCase <- function(
 								), collapse = ", "), 
 				
 				"short-description"  = 
-						if(!is.null(xml.root[["synopsis"]][["short-description"]])) 
+						if(!is.null(xml.root[["synopsis"]][["short-description"]])){
 							xmlValue(xml.root[["synopsis"]][["short-description"]])
-						else "",
+							
+						}else{
+							""
+						},
 				
 				"description"       = 
-						if(!is.null(xml.root[["synopsis"]][["description"]])) 
+						if(!is.null(xml.root[["synopsis"]][["description"]])){
 							xmlValue(xml.root[["synopsis"]][["description"]])
-						else "",
+						}
+						else{
+							""
+						} ,
 				
 				"label"       = 
-						if(!is.null(xml.root[["synopsis"]][["label"]])) 
+						if(!is.null(xml.root[["synopsis"]][["label"]])) {
 							xmlValue(xml.root[["synopsis"]][["label"]])
-						else "",
+							
+						}
+						else{""},
 				
 				"creation-date"     = 
-						if(!is.null(xml.root[["synopsis"]][["creation-date"]])) 
+						if(!is.null(xml.root[["synopsis"]][["creation-date"]])) {
+							
 							xmlValue(xml.root[["synopsis"]][["creation-date"]])
-						else "",
+						}else{""},
 				
 				"change-history"    = 
-						lapply(
-								xmlElementsByTagName(xml.root[["synopsis"]][["change-history"]], "change"), 
-								function(e) 
-									c(
-											author = xmlAttrs(e)[["author"]], 
-											date   = xmlAttrs(e)[["date"]],
-											change =  xmlValue(e)
-									)
-						)
+						if(!is.null(xml.root[["synopsis"]][["change-history"]])){
+							
+							lapply(
+									xmlElementsByTagName(xml.root[["synopsis"]][["change-history"]], "change"), 
+									function(e) 
+										c(
+												author = xmlAttrs(e)[["author"]], 
+												date   = xmlAttrs(e)[["date"]],
+												change =  xmlValue(e)
+										)
+							)
+						}else{
+							list()
+						}
 		)
 		
 		# Set Input data
