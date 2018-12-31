@@ -3,6 +3,7 @@
 language: R
 env:
   - PKG_TARBALL=RTest_1.2.3.tar.gz
+  - TRAVIS=TRUE
 sudo: false
 cache:
  - packages
