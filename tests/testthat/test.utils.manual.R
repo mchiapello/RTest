@@ -12,7 +12,7 @@ test_that("test_manualCheck_file",{
 	global_reporter <- get_reporter()
 	
 	# Just run manual tests on Travis CI
-	if(Sys.getenv("TRAVIS")=="true"){
+	if(Sys.getenv("TRAVIS")=="true" || as.character(Sys.info()["user"])=="travis"){
 		my_reporter <- ListReporter$new()
 	
 		set_reporter(my_reporter)
@@ -55,7 +55,7 @@ test_that("test_manualCheck_file non existing reference",{
 	
 	global_reporter <- get_reporter()
 	
-	if(Sys.getenv("TRAVIS")=="true"){
+	if(Sys.getenv("TRAVIS")=="true" || as.character(Sys.info()["user"])=="travis"){
 		my_reporter <- ListReporter$new()
 	
 		set_reporter(my_reporter)
@@ -96,7 +96,7 @@ test_that("test_manualCheck_file non existing result",{
 	global_reporter <- get_reporter()
 	
 	# Just run manual tests on Travis CI
-	if(Sys.getenv("TRAVIS")=="true"){
+	if(Sys.getenv("TRAVIS")=="true" || as.character(Sys.info()["user"])=="travis"){
 		my_reporter <- ListReporter$new()
 		
 		set_reporter(my_reporter)
