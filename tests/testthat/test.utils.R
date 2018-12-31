@@ -69,8 +69,8 @@ test_that("normalizeDate",{
 					normalizeDate("15.sep.1988",FALSE,months = c("jan"="january","sep"="myname")),
 					"15.02.1988")
 			
-			expect_equal(normalizeDate("15.MyName.1988",TRUE,months = c("jan"="january","sep"="myname"))
-				%>% class(),
+			expect_equal(normalizeDate("15.MyName.1988",TRUE,
+							months = c("jan"="january","sep"="myname")) %>% class(),
 					"Date")
 			
 		})

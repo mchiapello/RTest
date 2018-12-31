@@ -425,11 +425,15 @@ normalizeDate <- function(
     # Convert month
     d <- sub(names(months)[as.numeric(month)], month, d)
   }
-  
-  if(asDate) 
-    return(as.Date(d,tryFormats = c("%d.%m.%Y","%Y-%m-%d"))) 
-  else 
-    return(d)
+  if(asDate){
+	  if(as.numeric(R.Version()$major)+0.1*as.numeric(R.Version()$minor)<3.5){
+		  return(as.Date(d,format = c("%d.%m.%Y"))) 
+	  }else{
+		  return(as.Date(d,tryFormats = c("%d.%m.%Y","%Y-%m-%d"))) 
+	  }#R.Version
+  }else {
+	  return(d)
+  }#else
 }
 
 #' function to make strings xml and html compatible
