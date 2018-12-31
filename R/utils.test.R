@@ -1469,10 +1469,10 @@ test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc 
 	        tmp <- getwd()
 	        setwd(result)
 			
-			if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(".")
+			if(Sys.info()["sysname"]=="Windows")shell.exec(".")
 	        setwd(tmp)        
 	      } else {
-			  if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(result)
+			  if(Sys.info()["sysname"]=="Windows")shell.exec(result)
 	      }
 	  }else{
 		  cat("RESULT:\n")
@@ -1483,7 +1483,7 @@ test_manualCheck_file <- function(result, reference, xmlTestSpec=NULL, add.desc 
       cat(reference.txt,"\n")
       
       if(refisfile)
-		  if(Sys.info()["sysname"]=="Windows" && !testmode)shell.exec(reference)
+		  if(Sys.info()["sysname"]=="Windows")shell.exec(reference)
       
       cat("\n\n-----------------------------------------------------\n\n")
     }
