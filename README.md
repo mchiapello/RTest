@@ -51,6 +51,17 @@ devtools::install_github("zappingseb/RTest")
 
 There are two ways to start with RTest
 
+**NOTE**
+
+To derive more comprehensive reports from `testthat>2.0` you would have to overwrite the `testthat` function `as.expectation.logical` by:
+
+```
+assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")
+```
+
+The difference between the `testthat` and the `RTest` version of the function lays in the message output. `testthat` just gives a message in case of failure, while
+RTest always creates a message.
+
 ### 1 Vignettes
 
 ```

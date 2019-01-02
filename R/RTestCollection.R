@@ -105,9 +105,9 @@ setMethod("exec",
 				
 				# Changing as.expectation.logical as for testthat>=2.0 it's
 				# not producing the reporting we need for pretty reports
-				tryCatch(
-						assignInNamespace("as.expectation.logical", RTest::as.expectation.logical,
-						ns="testthat", pos="package:testthat"),error=function(e){})
+				#tryCatch(
+				#		assignInNamespace("as.expectation.logical", RTest::as.expectation.logical,
+				#		ns="testthat", pos="package:testthat"),error=function(e){})
 				
 				#unlockBinding("as.expectation.logical", as.environment("package:testthat")) 
 				#assign("as.expectation.logical", RTest::as.expectation.logical, "package:testthat")

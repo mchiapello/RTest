@@ -1,6 +1,6 @@
 Package: RTest
 Version: 1.2.3
-Date: 2018-12-31
+Date: 2019-01-02
 Title: A XML-Based Testing Framework for Automated Component Tests of R
         Packages
 Authors@R: c(
