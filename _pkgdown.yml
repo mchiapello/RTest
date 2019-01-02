@@ -1,0 +1,65 @@
+reference:
+  - title: "Package description"
+    contents: 
+      - matches("RTest")
+  - title: "Test execution"
+    contents:
+      - RTest.execute
+  - title: "Writing R data to xml"
+    desc: "Functions for reading and writing Spark DataFrames."
+    contents:
+      - starts_with("xmlWriteData")
+  - title: "Writing a test case"
+    desc: "Functions for writing a test case XML file"
+    contents:
+      - xmlWriteTest
+      - starts_with("xmlWriteTest_")
+      - xmlWriteContext
+      - xmlWriteTestSpec
+      - xmlWriteSynopsis
+      - xmlWriteInputData
+  - title: "Internal testing functions"
+    desc: "Functions that we use to compare values"
+    contents:
+      - starts_with("test_return")
+      - starts_with("test_manual")
+  - title: "Functions for examples"
+    desc: "Functions we provide for example test cases"
+    contents:
+      - starts_with("example_")
+  - title: "testthat replacing functions"
+    contents:
+      - expect_silent_RTest
+      - as.expectation.logical
+  - title: "RTestCollection-class"
+    contents:
+      - RTestCollection
+      - exec
+      - getExecStates
+      - getRTM
+      - getRTMInMatrixShape
+      - getTC
+      - getValidTCs
+      - importTC
+      - importTCsFromDir
+      - show
+      - summary
+      - writeExecSummary.html
+  - title: "RTestCase-class"
+    contents:
+      - RTestCase
+      - show
+      - getID
+      - getSynopsis
+      - getTestResult
+      - getXMLSourceFileName
+      - getExecDetails
+      - getExecDetails.html
+      - getExecSummary
+      - getExecSummary.html
+      - getXMLSourcePath
+      - initializeTests
+      - execAdapter
+      - execCache
+      - clearTest
+      - readXMLInputData
