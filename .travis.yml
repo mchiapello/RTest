@@ -2,7 +2,7 @@
 
 language: R
 env:
-  - PKG_TARBALL=RTest_1.2.3.tar.gz
+  - PKG_TARBALL=RTest_1.2.3.1000.tar.gz
 sudo: false
 cache:
  - packages
@@ -10,6 +10,7 @@ cache:
 pandoc_version: 1.19.2.1
 r_github_packages:
   - r-lib/covr
+  - r-lib/pkgdown
 addons:
   apt:
     update: true
@@ -39,11 +40,19 @@ script:
 after_success:
   - tar -C .. -xf $PKG_TARBALL
   - xvfb-run Rscript -e 'covr::codecov(type=c("tests", "vignettes", "examples"))'
+  - Rscript -e 'pkgdown::build_site()'
 
 deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file: $PKG_TARBALL
-  skip_cleanup: true
-  on:
-    tags: true
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: $PKG_TARBALL
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    keep-history: true
+    local-dir: docs
+    on:
+      branch: master
