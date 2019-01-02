@@ -2,7 +2,6 @@
 ^\.travis\.yml$
 ^_devel/*
 ^_devel/*.*
-^build
 ^docs
 ^docs/*.*
 ^docs/*
