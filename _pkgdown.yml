@@ -1,7 +1,7 @@
 reference:
   - title: "Package description"
     contents: 
-      - matches("RTest")
+      - RTest
   - title: "Test execution"
     contents:
       - RTest.execute
@@ -9,6 +9,10 @@ reference:
     desc: "Functions for reading and writing Spark DataFrames."
     contents:
       - starts_with("xmlWriteData")
+  - title: "Reading XML to R"
+    desc: "Functions for reading and writing Spark DataFrames."
+    contents:
+      - starts_with("xmlReadData")
   - title: "Writing a test case"
     desc: "Functions for writing a test case XML file"
     contents:
@@ -31,20 +35,6 @@ reference:
     contents:
       - expect_silent_RTest
       - as.expectation.logical
-  - title: "RTestCollection-class"
-    contents:
-      - RTestCollection
-      - exec
-      - getExecStates
-      - getRTM
-      - getRTMInMatrixShape
-      - getTC
-      - getValidTCs
-      - importTC
-      - importTCsFromDir
-      - show
-      - summary
-      - writeExecSummary.html
   - title: "RTestCase-class"
     contents:
       - RTestCase
@@ -63,3 +53,17 @@ reference:
       - execCache
       - clearTest
       - readXMLInputData
+  - title: "RTestCollection-class"
+    contents:
+      - RTestCollection
+      - exec
+      - getExecStates
+      - getRTM
+      - getRTMInMatrixShape
+      - getTC
+      - getValidTCs
+      - importTC
+      - importTCsFromDir
+      - show
+      - summary
+      - writeExecSummary.html
