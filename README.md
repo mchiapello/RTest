@@ -59,6 +59,8 @@ To derive more comprehensive reports from `testthat>2.0` you would have to overw
 assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")
 ```
 
+To avoid this unsafe call we created an issue at testthat: https://github.com/r-lib/testthat/issues/836
+
 The difference between the `testthat` and the `RTest` version of the function lays in the message output. `testthat` just gives a message in case of failure, while
 RTest always creates a message.
 
