@@ -6,3 +6,4 @@
 ^docs/*.*
 ^docs/*
 ^README.md
+^_pkgdown.yml

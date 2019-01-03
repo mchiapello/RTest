@@ -66,6 +66,4 @@ matrix:
       - sudo tlmgr install framed titling
     script:
       - R CMD build . --compact-vignettes=gs+qpdf
-      - Xvfb :99 -ac -screen 0 1024x768x8; R CMD check *tar.gz --as-cran
-
-
+      - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then ( sudo Xvfb :99 -ac -screen 0 1024x768x8; R CMD check *tar.gz --as-cran ) & fi
