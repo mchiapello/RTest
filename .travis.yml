@@ -65,6 +65,7 @@ matrix:
           branch: master
   - r: release
     os: osx
+    osx_image: xcode8
     before_install:
       - sudo tlmgr install framed titling
     # FROM https://github.com/travis-ci/travis-ci/issues/7313
