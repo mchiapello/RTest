@@ -1,6 +1,9 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
+os:
+  - linux
+  - osx
 env:
   - PKG_TARBALL=RTest_1.2.3.1000.tar.gz
 sudo: false
