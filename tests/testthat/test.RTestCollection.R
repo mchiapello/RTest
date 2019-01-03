@@ -189,7 +189,7 @@ test_that("RTestCollection summary errors / successes",{
 			)
 })
 
-test_that("RTestCollection write HTML summary",{
+test_that("RTestCollection write HTML summary errors",{
 			
 	global_rep <- get_reporter()
 	# Create test collection
@@ -225,6 +225,56 @@ test_that("RTestCollection write HTML summary",{
 	set_reporter(intern_reporter)
 	testCollection <- exec(testCollection, out.fPath = tempfile(fileext=".html"), open=FALSE)
 	set_reporter(global_rep)
+	
+	expect_silent(
+			writeExecSummary.html(testCollection,
+					out.fPath = tempfile(fileext=".html"),
+					logo= file.path(find.package("RTest"),
+							"images/Roche_Logo_defect.png"
+					),
+					open=FALSE
+			)
+	)
+})
+
+test_that("RTestCollection write HTML summary silent",{
+			
+	global_rep <- get_reporter()
+	# Create test collection
+	testCollection <- new("RTestCollection", 
+			project.name    = "RTest Vignette", 
+			project.details = "Example test exectuion",
+			tester          = "Example tester",
+			test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+	intern_reporter <- get_reporter()
+	set_reporter(global_rep)
+	
+	expect_silent(testCollection <- importTC(testCollection,
+					xml.fPath = file.path(find.package("RTest"),
+							"xml-templates/RTest_TC-01.xml"
+					)
+			))
+	set_reporter(global_rep)
+	expect_silent(
+			
+			writeExecSummary.html(testCollection, out.fPath = tempfile(fileext=".html"),open=FALSE)
+	)
+	
+	# Execute Test Case
+	set_reporter(intern_reporter)
+	testCollection <- exec(testCollection, out.fPath = tempfile(fileext=".html"), open=FALSE)
+	set_reporter(global_rep)
+	
+	# Execute to see warning
+	tryCatch({writeExecSummary.html(testCollection,
+			out.fPath = tempfile(fileext=".html"),
+			logo= file.path(find.package("RTest"),
+					"images/Roche_Logo_defect.png"
+			),
+			open=FALSE
+	)},warning=function(w){
+		expect_equal(w,"warning")
+	})
 	
 	expect_silent(
 			writeExecSummary.html(testCollection,
