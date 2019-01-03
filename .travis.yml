@@ -68,6 +68,8 @@ matrix:
     osx_image: xcode8
     before_install:
       - brew update
+      - brew install qpdf
+      - brew install ghostscript
       - brew cask reinstall xquartz
       - brew install tcl-tk --with-tk
       - brew link --overwrite --force tcl-tk; brew unlink tcl-tk
