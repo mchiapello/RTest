@@ -68,7 +68,7 @@ matrix:
     osx_image: xcode8
     before_install:
       - brew update
-      - brew cask install xquartz
+      - brew cask reinstall xquartz
       - brew install tcl-tk --with-tk
       - brew link --overwrite --force tcl-tk; brew unlink tcl-tk
       - brew install freetype 
