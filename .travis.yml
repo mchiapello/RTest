@@ -1,16 +1,10 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-os:
-  - linux
-  - osx
 env:
   - PKG_TARBALL=RTest_1.2.3.1000.tar.gz
 sudo: false
 
-before_install:
-  - if [[ "$OSTYPE" != "linux-gnu" ]]; then sudo tlmgr install framed titling; fi
-  
 cache:
  - packages
  - apt: true
@@ -18,6 +12,7 @@ pandoc_version: 1.19.2.1
 r_github_packages:
   - r-lib/covr
   - r-lib/pkgdown
+
 addons:
   apt:
     update: true
@@ -40,27 +35,37 @@ addons:
       - qpdf
       - ghostscript
 
+matrix:
+  include:
+  - r: release
+    script:
+      - R CMD build . --compact-vignettes=gs+qpdf
+      - xvfb-run R CMD check *tar.gz --as-cran
+    after_success:
+      - tar -C .. -xf $PKG_TARBALL
+      - xvfb-run Rscript -e 'covr::codecov(type=c("tests", "vignettes", "examples"))'
+      - rm -rf RTest.Rcheck
+      - Rscript -e 'pkgdown::build_site()'
+    deploy:
+      - provider: releases
+        api_key: $GITHUB_TOKEN
+        file: $PKG_TARBALL
+        skip_cleanup: true
+        on:
+          tags: true
+      - provider: pages
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
+        keep-history: false
+        local-dir: docs
+        on:
+          branch: master
+  - r: release
+    os: osx
+    before_install:
+      - sudo tlmgr install framed titling
+    script:
+      - R CMD build . --compact-vignettes=gs+qpdf
+      - Xvfb :99 -ac -screen 0 1024x768x8; R CMD check *tar.gz --as-cran
 
-script:
-- R CMD build . --compact-vignettes=gs+qpdf
-- xvfb-run R CMD check *tar.gz --as-cran
- 
-after_success:
-  - tar -C .. -xf $PKG_TARBALL
-  - xvfb-run Rscript -e 'covr::codecov(type=c("tests", "vignettes", "examples"))'
-  - Rscript -e 'pkgdown::build_site()'
 
-deploy:
-  - provider: releases
-    api_key: $GITHUB_TOKEN
-    file: $PKG_TARBALL
-    skip_cleanup: true
-    on:
-      tags: true
-  - provider: pages
-    skip-cleanup: true
-    github-token: $GITHUB_TOKEN
-    keep-history: false
-    local-dir: docs
-    on:
-      branch: master
