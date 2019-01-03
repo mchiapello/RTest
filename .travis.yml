@@ -76,7 +76,8 @@ matrix:
       - sudo tlmgr install framed titling
     # FROM https://github.com/travis-ci/travis-ci/issues/7313
     before_script:
-      - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then ( sudo Xvfb :99 -ac -screen 0 1024x768x8; echo ok ) & fi
+      - "export DISPLAY=:99.0"
+      - sudo Xvfb :99 -ac -screen 0 1024x768x8 && echo "ok"
     script:
       - R CMD build . --compact-vignettes=gs+qpdf
       - R CMD check *tar.gz --as-cran
