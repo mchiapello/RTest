@@ -67,9 +67,9 @@ matrix:
     os: osx
     osx_image: xcode8
     before_install:
-      - brew update
-      - brew install homebrew/dupes/tcl-tk
-      - brew link --overwrite --force tcl-tk; brew unlink tcl-tk
+      - sudo brew update
+      - brew install tcl-tk --with-tk
+      # - brew link --overwrite --force tcl-tk; brew unlink tcl-tk
       - sudo tlmgr install framed titling
     # FROM https://github.com/travis-ci/travis-ci/issues/7313
     before_script:
