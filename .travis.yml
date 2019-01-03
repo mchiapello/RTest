@@ -67,7 +67,7 @@ matrix:
     os: osx
     osx_image: xcode8
     before_install:
-      - sudo brew update
+      - brew update
       - brew install tcl-tk --with-tk
       # - brew link --overwrite --force tcl-tk; brew unlink tcl-tk
       - sudo tlmgr install framed titling
