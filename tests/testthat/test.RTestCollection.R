@@ -218,7 +218,7 @@ test_that("RTestCollection write HTML summary",{
 	set_reporter(global_rep)
 	expect_silent(
 			
-			writeExecSummary.html(testCollection, out.fPath = tempfile(fileext=".html"),open=F)
+			writeExecSummary.html(testCollection, out.fPath = tempfile(fileext=".html"),open=FALSE)
 	)
 	
 	# Execute Test Case
