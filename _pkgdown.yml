@@ -56,15 +56,4 @@ reference:
   - title: "RTestCollection-class"
     contents:
       - match("RTestCollection")
-      - exec
-      - getExecStates
-      - getRTM
-      - getRTMInMatrixShape
-      - getTC
-      - getValidTCs
-      - importTC
-      - importTCsFromDir
-      - show
-      - summary
-      - writeExecSummary.html
 
