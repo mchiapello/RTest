@@ -26,6 +26,24 @@ test_that("RTestCollection show",{
 
 })
 
+test_that("RTestCollection constructor",{
+			
+			global_rep <- get_reporter()
+			# Create test collection
+			testCollection <- RTestCollection(
+					project.name    = "RTest Vignette", 
+					project.details = "Example test exectuion",
+					tester          = "Example tester")
+			
+			set_reporter(global_rep)
+			
+			expect_equal(regexp = "RTest Vignette",
+					testCollection@project.name
+			)
+			
+		})
+
+
 test_that("RTestCollection importTC errors",{
 	
 	global_rep <- get_reporter()
