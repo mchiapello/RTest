@@ -55,7 +55,7 @@ reference:
       - readXMLInputData
   - title: "RTestCollection-class"
     contents:
-      - RTestCollection
+      - match("RTestCollection")
       - exec
       - getExecStates
       - getRTM
@@ -67,3 +67,4 @@ reference:
       - show
       - summary
       - writeExecSummary.html
+
