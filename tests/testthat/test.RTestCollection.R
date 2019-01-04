@@ -33,7 +33,7 @@ test_that("RTestCollection constructor",{
 			testCollection <- RTestCollection(
 					project.name    = "RTest Vignette", 
 					project.details = "Example test exectuion",
-					tester          = "Example tester")
+					project.tester          = "Example tester")
 			
 			set_reporter(global_rep)
 			
