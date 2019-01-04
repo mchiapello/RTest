@@ -37,7 +37,7 @@ test_that("RTestCollection constructor",{
 			
 			set_reporter(global_rep)
 			
-			expect_equal(regexp = "RTest Vignette",
+			expect_equal("RTest Vignette",
 					testCollection@project.name
 			)
 			
