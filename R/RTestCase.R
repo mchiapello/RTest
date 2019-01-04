@@ -461,7 +461,7 @@ setMethod("initializeTests",
 #' @param    object          (\code{object}) The \code{\link{RTestCase-class}} object.
 #' 
 #' @seealso \code{\link{RTestCase-class}}
-#' @name show
+#' 
 #' @aliases show,RTestCase-method
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 setMethod("show", 
