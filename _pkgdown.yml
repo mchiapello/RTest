@@ -38,12 +38,11 @@ reference:
   - title: "RTestCase-class"
     contents:
       - RTestCase
-      - show
+      - show,RTestCase-method
       - getID
       - getSynopsis
       - getTestResult
       - getXMLSourceFileName
-      - getExecDetails
       - getExecDetails.html
       - getExecSummary
       - getExecSummary.html
@@ -55,5 +54,15 @@ reference:
       - readXMLInputData
   - title: "RTestCollection-class"
     contents:
-      - match("RTestCollection")
-
+      - RTestCollection
+      - show,RTestCollection-method
+      - exec	
+      - getExecStates	
+      - getRTM	
+      - getRTMInMatrixShape	
+      - getTC	
+      - getValidTCs	
+      - importTC	
+      - importTCsFromDir	
+      - summary	
+      - writeExecSummary.html

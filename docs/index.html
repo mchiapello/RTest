@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">RTest</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3.1000</span>
       </span>
     </div>
 
@@ -130,6 +130,11 @@
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># For devel version</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"zappingseb/RTest"</span>)</a></code></pre></div>
 <p>There are two ways to start with RTest</p>
+<p><strong>NOTE</strong></p>
+<p>To derive more comprehensive reports from <code>testthat&gt;2.0</code> you would have to overwrite the <code>testthat</code> function <code>as.expectation.logical</code> by:</p>
+<pre><code>assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")</code></pre>
+<p>To avoid this unsafe call we created an issue at testthat: <a href="https://github.com/r-lib/testthat/issues/836" class="uri">https://github.com/r-lib/testthat/issues/836</a></p>
+<p>The difference between the <code>testthat</code> and the <code>RTest</code> version of the function lays in the message output. <code>testthat</code> just gives a message in case of failure, while RTest always creates a message.</p>
 <div id="vignettes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>1 Vignettes</h3>
@@ -151,22 +156,22 @@ vignette("RTest",package="RTest")</code></pre>
 <li>example_variable</li>
 </ul>
 <p>that can be found in <a href="https://github.com/zappingseb/RTest/blob/master/R/utils.examples.R"><code>utils.examples.R</code></a>. Each function will create an object. <code>example_data_frame</code> an <code>data.frame</code>, <code>example_image</code> an ìmage, … Inside the XML file you will see an example of testing the variable function as:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">&lt;example_variable</span><span class="ot"> test-desc=</span><span class="st">"Test relative difference"</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="kw">&lt;params&gt;</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="kw">&lt;x</span><span class="ot"> value=</span><span class="st">"1"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">&lt;y</span><span class="ot"> value=</span><span class="st">"1.2"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="kw">&lt;/params&gt;</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="kw">&lt;reference</span><span class="ot"> value=</span><span class="st">"-0.2"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="kw">&lt;testspec&gt;</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="kw">&lt;execution</span><span class="ot"> execution-type=</span><span class="st">"silent"</span> <span class="kw">/&gt;</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="kw">&lt;/testspec&gt;</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">&lt;/example_variable&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode xml"><code class="sourceCode xml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">&lt;example_variable</span><span class="ot"> test-desc=</span><span class="st">"Test relative difference"</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw">&lt;params&gt;</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw">&lt;x</span><span class="ot"> value=</span><span class="st">"1"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="kw">&lt;y</span><span class="ot"> value=</span><span class="st">"1.2"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="kw">&lt;/params&gt;</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="kw">&lt;reference</span><span class="ot"> value=</span><span class="st">"-0.2"</span><span class="ot"> type=</span><span class="st">"numeric"</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="kw">&lt;testspec&gt;</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">    <span class="kw">&lt;execution</span><span class="ot"> execution-type=</span><span class="st">"silent"</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">  <span class="kw">&lt;/testspec&gt;</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">&lt;/example_variable&gt;</span></a></code></pre></div>
 <p>The R-Code of the function is:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">example_variable &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x=</span><span class="fl">1.2</span>,<span class="dt">y=</span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">    (x<span class="op">-</span>y)<span class="op">/</span>(x)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">example_variable &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x=</span><span class="fl">1.2</span>,<span class="dt">y=</span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">    (x<span class="op">-</span>y)<span class="op">/</span>(x)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">}</a></code></pre></div>
 <p>If you now run the following code inside your clone of this repo:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/RTest.execute.html">RTest.execute</a></span>(<span class="st">"./inst/xml-templates"</span>, <span class="dt">f.pattern=</span><span class="st">"RTest_TC-generic.xml"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/RTest.execute.html">RTest.execute</a></span>(<span class="st">"./inst/xml-templates"</span>, <span class="dt">f.pattern=</span><span class="st">"RTest_TC-generic.xml"</span>)</a></code></pre></div>
 <p>an easy to read report will be generated. The full Test report can be found here: <a href="https://zappingseb.github.io/RTest/articles/RTest_TC-generic_result.html" class="uri">https://zappingseb.github.io/RTest/articles/RTest_TC-generic_result.html</a></p>
 <p>But the major point is the variable report output which looks like this:</p>
 <p><img src="articles/example_variable.jpg" alt="Variable test report example"></p>

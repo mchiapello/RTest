@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the XML Root of the Test Case — getXMLRoot • RTest</title>
+<title>Constructor for 'RTestCollection' — RTestCollection • RTest</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the XML Root of the Test Case — getXMLRoot" />
+<meta property="og:title" content="Constructor for 'RTestCollection' — RTestCollection" />
 
-<meta property="og:description" content="Get the XML Root of the Test Case" />
+<meta property="og:description" content="Constructor for 'RTestCollection'" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,38 +107,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the XML Root of the Test Case</h1>
+    <h1>Constructor for 'RTestCollection'</h1>
     
-    <div class="hidden name"><code>getXMLRoot.Rd</code></div>
+    <div class="hidden name"><code>RTestCollection.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get the XML Root of the Test Case</p>
+    <p>Constructor for 'RTestCollection'</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for RTestCase</span>
-<span class='fu'>getXMLRoot</span>(<span class='no'>object</span>)</pre>
+    <pre class="usage"><span class='fu'>RTestCollection</span>(<span class='kw'>project.name</span> <span class='kw'>=</span> <span class='st'>"RTest Execution"</span>,
+  <span class='kw'>project.details</span> <span class='kw'>=</span> <span class='st'>"Example test exectuion"</span>,
+  <span class='kw'>project.tester</span> <span class='kw'>=</span> <span class='st'>"Example tester"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>(<code>object</code>) The <code><a href='RTestCase-class.html'>RTestCase-class</a></code> object.</p></td>
+      <th>project.name</th>
+      <td><p>- Name of the test campaign</p></td>
+    </tr>
+    <tr>
+      <th>project.details</th>
+      <td><p>- Details of the test campaign</p></td>
+    </tr>
+    <tr>
+      <th>project.tester</th>
+      <td><p>- Name of the tester</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>(<code>XMLNode</code>)</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='RTestCase-class.html'>RTestCase-class</a></code></p></div>
+    <p><a href='RTestCollection-class.html'>RTestCollection-class</a> object</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>obj</span> <span class='kw'>&lt;-</span> <span class='fu'>RTestCollection</span>()
+<span class='fu'><a href='show.html'>show</a></span>(<span class='no'>obj</span>)</div><div class='output co'>#&gt; RTestCollection
+#&gt;   @project.name:       RTest Execution 
+#&gt;   @project.details:    Example test exectuion 
+#&gt;   @tester:             Example tester 
+#&gt;   @test.start:         2019-01-04 12:01:08 
+#&gt;   @collection:         0  TCs
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -146,13 +162,13 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     
-Matthias Pfeifer <a href='mailto:matthias.pfeifer@roche.com'>matthias.pfeifer@roche.com</a>
+Sebastian Wolf
 
   </div>
 </div>

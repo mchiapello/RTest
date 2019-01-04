@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RTest</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3.1000</span>
       </span>
     </div>
 
@@ -172,8 +172,8 @@ NULL for test all elements</p></td>
    <span class='fu'>grep</span>(<span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"xml-templates"</span>, <span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>message</span>(<span class='st'>"Test Adapter being used is defined in Function"</span>)</div><div class='output co'>#&gt; <span class='message'>Test Adapter being used is defined in Function</span></div><div class='input'><span class='fu'>message</span>(<span class='st'>"test.RTest.test_returnValue_data.frame_cellbycell"</span>)</div><div class='output co'>#&gt; <span class='message'>test.RTest.test_returnValue_data.frame_cellbycell</span></div><div class='input'>
-<span class='no'>testCollection</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>RTest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/RTest/topics/importTCsFromDir'>importTCsFromDir</a></span>(<span class='no'>testCollection</span>,
-                <span class='kw'>xml.dPath</span> <span class='kw'>=</span> <span class='no'>TCDir</span>,<span class='kw'>f.pattern</span>     <span class='kw'>=</span> <span class='st'>"RTest_TC-01.xml"</span>)
+<span class='no'>testCollection</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTCsFromDir.html'>importTCsFromDir</a></span>(<span class='no'>testCollection</span>,
+                <span class='kw'>xml.dPath</span> <span class='kw'>=</span> <span class='no'>TCDir</span>[<span class='fl'>1</span>],<span class='kw'>f.pattern</span>  <span class='kw'>=</span> <span class='st'>"RTest_TC-01.xml"</span>)
 
 <span class='no'>testCollection</span> <span class='kw'>&lt;-</span> <span class='fu'>exec</span>(<span class='no'>testCollection</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.</span>
 #&gt; <span class='warning'>  Consider 'structure(list(), *)' instead.</span></div><div class='input'>

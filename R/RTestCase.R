@@ -90,7 +90,7 @@ setClass(
 #'                         executed.
 #' @param     test.result   (\code{character}) Result of the last test case execution ('SUCCESS' or 
 #'                         'FAILURE'). NULL, if the test case has not been executed.
-#' @return (.Object) \code{RTestCase} Object
+#' @return (.Object) \link{RTestCase-class} Object
 #' 
 #' @export 
 #' 
@@ -461,7 +461,8 @@ setMethod("initializeTests",
 #' @param    object          (\code{object}) The \code{\link{RTestCase-class}} object.
 #' 
 #' @seealso \code{\link{RTestCase-class}}
-#' 
+#' @name show
+#' @aliases show,RTestCase-method
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 setMethod("show", 
   signature  = "RTestCase",

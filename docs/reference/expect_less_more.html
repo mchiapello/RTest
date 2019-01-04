@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the XML Root of the Test Case — getXMLRoot • RTest</title>
+<title>Expect less or more — expect_less_than • RTest</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Get the XML Root of the Test Case — getXMLRoot" />
+<meta property="og:title" content="Expect less or more — expect_less_than" />
 
-<meta property="og:description" content="Get the XML Root of the Test Case" />
+<meta property="og:description" content="Expect less or more" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,36 +107,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the XML Root of the Test Case</h1>
+    <h1>Expect less or more</h1>
     
-    <div class="hidden name"><code>getXMLRoot.Rd</code></div>
+    <div class="hidden name"><code>expect_less_more.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get the XML Root of the Test Case</p>
+    <p>Expect less or more</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for RTestCase</span>
-<span class='fu'>getXMLRoot</span>(<span class='no'>object</span>)</pre>
+    <pre class="usage"><span class='fu'>expect_less_than</span>(<span class='no'>...</span>)
+
+<span class='fu'>expect_more_than</span>(<span class='no'>...</span>)
+
+<span class='fu'>expect_lt</span>(<span class='no'>...</span>)
+
+<span class='fu'>expect_gt</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>(<code>object</code>) The <code><a href='RTestCase-class.html'>RTestCase-class</a></code> object.</p></td>
+      <th>...</th>
+      <td><p>Any parameter sent to expect_gt or expect_lt of testthat</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>(<code>XMLNode</code>)</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='RTestCase-class.html'>RTestCase-class</a></code></p></div>
     
 
   </div>
@@ -144,15 +141,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-Matthias Pfeifer <a href='mailto:matthias.pfeifer@roche.com'>matthias.pfeifer@roche.com</a>
+                </ul>
 
   </div>
 </div>

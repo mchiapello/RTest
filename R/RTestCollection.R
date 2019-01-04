@@ -19,6 +19,7 @@
 #' @slot     test.start    (\code{character}) Start date of the testing project.
 #' @slot     collection    (\code{list}) The test case collection.
 #'
+#' @name RTestCollection-class
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 setClass(
     Class          = "RTestCollection",
@@ -43,6 +44,37 @@ setClass(
       return(TRUE)
     }
 )
+
+#' Constructor for 'RTestCollection'
+#' 
+#' @param project.name - Name of the test campaign
+#' @param project.details - Details of the test campaign
+#' @param project.tester - Name of the tester
+#' 
+#' @return \link{RTestCollection-class} object
+#' 
+#' @examples 
+#' 
+#' obj <- RTestCollection()
+#' show(obj)
+#' 
+#' @export
+#' @author Sebastian Wolf
+RTestCollection <- function(
+		project.name = "RTest Execution",
+		project.details = "Example test exectuion",
+		project.tester = "Example tester"
+		){
+	
+		new(
+		"RTestCollection", 
+		project.name    = project.name, 
+		project.details = project.details,
+		tester          = project.tester,
+		test.start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+		)
+	
+}
 
 # exec ############################################################################################
 
@@ -169,6 +201,8 @@ setMethod("exec",
 #' # Now one test case shall be imported
 #' show(testCollection)
 #' 
+#' @name show
+#' @aliases show,RTestCollection-method
 #' @author   Matthias Pfeifer \email{matthias.pfeifer@@roche.com}
 setMethod("show", 
     signature  = "RTestCollection",

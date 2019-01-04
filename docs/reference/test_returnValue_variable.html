@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RTest</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3.1000</span>
       </span>
     </div>
 
@@ -154,7 +154,7 @@ definition.</p></td>
 
 <span class='fu'>tryCatch</span>(<span class='fu'>unloadNamespace</span>(<span class='st'>"RTest"</span>))
 <span class='fu'>tryCatch</span>(<span class='fu'>unloadNamespace</span>(<span class='st'>"testthat"</span>))
-<span class='fu'>library</span>(<span class='no'>RTest</span>)</div><div class='output co'>#&gt; <span class='message'>Lade nötiges Paket: testthat</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Paket 'testthat' wurde unter R Version 3.4.4 erstellt</span></div><div class='input'>
+<span class='fu'>library</span>(<span class='no'>RTest</span>)</div><div class='output co'>#&gt; <span class='message'>Lade nötiges Paket: testthat</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Paket 'testthat' wurde unter R Version 3.4.4 erstellt</span></div><div class='output co'>#&gt; <span class='message'>Thank you for using RTest</span></div><div class='output co'>#&gt; <span class='message'>To use a more comprehensive version of the test-report we recommend to run:</span></div><div class='output co'>#&gt; <span class='message'>assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")</span></div><div class='input'>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='st'>'&lt;test_variable desc="Compare a value" 
           diff-type="absolute" compare-type="equal" tolerance="1E-3"/&gt;'</span>
 <span class='no'>xmlTestSpec</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>XML</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/XML/topics/xmlRoot'>xmlRoot</a></span>(<span class='kw pkg'>XML</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/XML/topics/xmlTreeParse'>xmlParse</a></span>(<span class='no'>data</span>,<span class='kw'>asText</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
@@ -171,7 +171,7 @@ definition.</p></td>
 
 <span class='fu'>tryCatch</span>(<span class='fu'>unloadNamespace</span>(<span class='st'>"RTest"</span>))
 <span class='fu'>tryCatch</span>(<span class='fu'>unloadNamespace</span>(<span class='st'>"testthat"</span>))
-<span class='fu'>library</span>(<span class='no'>RTest</span>)</div><div class='output co'>#&gt; <span class='message'>Lade nötiges Paket: testthat</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Paket 'testthat' wurde unter R Version 3.4.4 erstellt</span></div><div class='input'>
+<span class='fu'>library</span>(<span class='no'>RTest</span>)</div><div class='output co'>#&gt; <span class='message'>Lade nötiges Paket: testthat</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Paket 'testthat' wurde unter R Version 3.4.4 erstellt</span></div><div class='output co'>#&gt; <span class='message'>Thank you for using RTest</span></div><div class='output co'>#&gt; <span class='message'>To use a more comprehensive version of the test-report we recommend to run:</span></div><div class='output co'>#&gt; <span class='message'>assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")</span></div><div class='input'>
 <span class='fu'>tryCatch</span>(
                 <span class='fu'>test_returnValue_variable</span>(<span class='fl'>5.0001</span>,<span class='fl'>5</span>,<span class='no'>xmlTestSpec</span>),<span class='kw'>error</span><span class='kw'>=</span><span class='kw'>function</span>(<span class='no'>e</span>){
                         <span class='fu'>stopifnot</span>(<span class='fu'>grepl</span>(<span class='st'>"5.0001 not equal to 5."</span>,<span class='no'>e</span>))

@@ -2,6 +2,7 @@
 
 export(
   "RTestCase"                                 , 
+  "RTestCollection"                           , 
   "setTestMethod"                             ,
   
   "xmlReadData_variable"                      ,

@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RTest</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3.1000</span>
       </span>
     </div>
 
@@ -171,9 +171,11 @@ method</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='no'>directory_with_tests</span> <span class='kw'>&lt;-</span> <span class='fu'>list.dirs</span>(<span class='fu'>find.package</span>(<span class='st'>'RTest'</span>),<span class='kw'>recursive</span><span class='kw'>=</span><span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
+                                <span class='fu'>grep</span>(<span class='kw'>pattern</span><span class='kw'>=</span><span class='st'>"xml-templates"</span>,<span class='kw'>value</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+
 <span class='kw pkg'>RTest</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/RTest/topics/RTest.execute'>RTest.execute</a></span>(
- <span class='kw'>testcase.directory</span> <span class='kw'>=</span> <span class='fu'>list.dirs</span>(<span class='fu'>find.package</span>(<span class='st'>'RTest'</span>),<span class='kw'>recursive</span><span class='kw'>=</span><span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-                                <span class='fu'>grep</span>(<span class='kw'>pattern</span><span class='kw'>=</span><span class='st'>"xml-templates"</span>,<span class='kw'>value</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
+ <span class='kw'>testcase.directory</span> <span class='kw'>=</span> <span class='no'>directory_with_tests</span>[<span class='fl'>1</span>],
         <span class='kw'>open</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
  <span class='kw'>f.pattern</span> <span class='kw'>=</span> <span class='st'>"RTest_TC-generic.xml"</span>
 )</div><div class='output co'>#&gt; 1 files found in input directory:
@@ -368,7 +370,7 @@ method</p></td>
 #&gt;   Check return value (variable).
 #&gt;     0% 
 #&gt; 
-#&gt; HTML summary written to file 'C:\Users\wolfs25\AppData\Local\Temp\Rtmp2vrd6e\file25d845ed6799.html'.
+#&gt; HTML summary written to file 'C:\Users\wolfs25\AppData\Local\Temp\Rtmp4y27p6\file20384e4557c0.html'.
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

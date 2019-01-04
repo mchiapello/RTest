@@ -152,6 +152,8 @@ expect_lt <- function(...){
 		testthat::expect_less_than(...)
 	}
 }
+#'Expect less or more
+#' 
 #'@name expect_less_more
 #'@aliases expect_gt
 #'@param ... Any parameter sent to expect_gt or expect_lt of testthat

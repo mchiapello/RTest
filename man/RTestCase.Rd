@@ -35,7 +35,7 @@ executed.}
 'FAILURE'). NULL, if the test case has not been executed.}
 }
 \value{
-(.Object) \code{RTestCase} Object
+(.Object) \link{RTestCase-class} Object
 }
 \description{
 Constructor for RTestCase

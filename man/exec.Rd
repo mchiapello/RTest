@@ -43,8 +43,8 @@ TCDir <- list.dirs(find.package("RTest"),recursive = TRUE) \%>\%
 message("Test Adapter being used is defined in Function")
 message("test.RTest.test_returnValue_data.frame_cellbycell")
 
-testCollection <- RTest::importTCsFromDir(testCollection,
-		xml.dPath = TCDir,f.pattern	= "RTest_TC-01.xml")
+testCollection <- importTCsFromDir(testCollection,
+		xml.dPath = TCDir[1],f.pattern	= "RTest_TC-01.xml")
 
 testCollection <- exec(testCollection)
 

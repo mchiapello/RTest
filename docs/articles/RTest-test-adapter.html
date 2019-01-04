@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RTest</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.2.3.1000</span>
       </span>
     </div>
 
@@ -266,56 +266,59 @@ xsi:noNamespaceSchemaLocation="../xsd/RTest.xsd"&gt;
 ## Enabled features: cairo, freetype, fftw, ghostscript, lcms, pango, rsvg, webp
 ## Disabled features: fontconfig, x11</code></pre>
 <pre><code>## Lade nötiges Paket: XML</code></pre>
+<pre><code>## Thank you for using RTest</code></pre>
+<pre><code>## To use a more comprehensive version of the test-report we recommend to run:</code></pre>
+<pre><code>## assignInNamespace("as.expectation.logical", RTest::as.expectation.logical, ns="testthat", pos="package:testthat")</code></pre>
 <pre><code>## 
 ## Attache Paket: 'RTest'</code></pre>
 <pre><code>## The following object is masked _by_ '.GlobalEnv':
 ## 
 ##     test_fun</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># Create test adapter</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">setClass</span>(</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">        <span class="dt">Class          =</span> <span class="st">"TestPackageTestCase"</span>,</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">        <span class="dt">representation =</span> <span class="kw">representation</span>(),</a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">        <span class="dt">prototype      =</span> <span class="kw">list</span>(), </a>
-<a class="sourceLine" id="cb18-6" data-line-number="6">        <span class="dt">contains       =</span> <span class="st">"RTestCase"</span>,</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7">        <span class="dt">where =</span> .GlobalEnv</a>
-<a class="sourceLine" id="cb18-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10">TestPackageTestCase &lt;-<span class="st"> </span><span class="cf">function</span>(xmlpath){</a>
-<a class="sourceLine" id="cb18-11" data-line-number="11">    <span class="kw"><a href="../reference/RTestCase.html">RTestCase</a></span>(<span class="dt">xml.fPath=</span>xmlpath)</a>
-<a class="sourceLine" id="cb18-12" data-line-number="12">}</a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14">RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/setTestMethod">setTestMethod</a></span>(</a>
-<a class="sourceLine" id="cb18-15" data-line-number="15">        <span class="st">"test.Pkg_1.funct_01"</span>, </a>
-<a class="sourceLine" id="cb18-16" data-line-number="16">        <span class="dt">signature  =</span> <span class="st">"TestPackageTestCase"</span>,</a>
-<a class="sourceLine" id="cb18-17" data-line-number="17">        <span class="dt">definition =</span> <span class="cf">function</span>(object, inputData, execCache, xmlDef, ...) {</a>
-<a class="sourceLine" id="cb18-18" data-line-number="18">            </a>
-<a class="sourceLine" id="cb18-19" data-line-number="19">            <span class="co"># Read parameters</span></a>
-<a class="sourceLine" id="cb18-20" data-line-number="20">            mult &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/xmlReadData_variable">xmlReadData_variable</a></span>(xmlDef[[<span class="st">"params"</span>]][[<span class="st">"mult"</span>]])</a>
-<a class="sourceLine" id="cb18-21" data-line-number="21">            </a>
-<a class="sourceLine" id="cb18-22" data-line-number="22">            </a>
-<a class="sourceLine" id="cb18-23" data-line-number="23">            <span class="co"># Calculate result</span></a>
-<a class="sourceLine" id="cb18-24" data-line-number="24">            result &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/test_execution">test_execution</a></span>(</a>
-<a class="sourceLine" id="cb18-25" data-line-number="25">                    <span class="dt">what        =</span> test_fun,</a>
-<a class="sourceLine" id="cb18-26" data-line-number="26">                    <span class="dt">args        =</span> <span class="kw">list</span>(<span class="kw">c</span>(inputData[[<span class="dv">1</span>]], mult)),</a>
-<a class="sourceLine" id="cb18-27" data-line-number="27">                    <span class="dt">xmlTestSpec =</span> xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"execution"</span>]])</a>
-<a class="sourceLine" id="cb18-28" data-line-number="28">            </a>
-<a class="sourceLine" id="cb18-29" data-line-number="29">            <span class="co"># Read reference</span></a>
-<a class="sourceLine" id="cb18-30" data-line-number="30">            reference &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/xmlReadData_data.frame">xmlReadData_data.frame</a></span>(xmlDef[[<span class="st">"reference"</span>]])</a>
-<a class="sourceLine" id="cb18-31" data-line-number="31">            </a>
-<a class="sourceLine" id="cb18-32" data-line-number="32">            <span class="co"># Execute test</span></a>
-<a class="sourceLine" id="cb18-33" data-line-number="33">            <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.null</span>(xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"return-value"</span>]]))</a>
-<a class="sourceLine" id="cb18-34" data-line-number="34">                RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/test_returnValue_data.frame_cellbycell">test_returnValue_data.frame_cellbycell</a></span>(</a>
-<a class="sourceLine" id="cb18-35" data-line-number="35">                        result, </a>
-<a class="sourceLine" id="cb18-36" data-line-number="36">                        reference, </a>
-<a class="sourceLine" id="cb18-37" data-line-number="37">                        xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"return-value"</span>]]</a>
-<a class="sourceLine" id="cb18-38" data-line-number="38">                )    </a>
-<a class="sourceLine" id="cb18-39" data-line-number="39">            </a>
-<a class="sourceLine" id="cb18-40" data-line-number="40">            </a>
-<a class="sourceLine" id="cb18-41" data-line-number="41">            <span class="co"># Return result (will be cached)</span></a>
-<a class="sourceLine" id="cb18-42" data-line-number="42">            <span class="kw">return</span>(result)</a>
-<a class="sourceLine" id="cb18-43" data-line-number="43">        },</a>
-<a class="sourceLine" id="cb18-44" data-line-number="44">        <span class="dt">where =</span> .GlobalEnv</a>
-<a class="sourceLine" id="cb18-45" data-line-number="45">)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># Create test adapter</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">setClass</span>(</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3">        <span class="dt">Class          =</span> <span class="st">"TestPackageTestCase"</span>,</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">        <span class="dt">representation =</span> <span class="kw">representation</span>(),</a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">        <span class="dt">prototype      =</span> <span class="kw">list</span>(), </a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">        <span class="dt">contains       =</span> <span class="st">"RTestCase"</span>,</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">        <span class="dt">where =</span> .GlobalEnv</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">TestPackageTestCase &lt;-<span class="st"> </span><span class="cf">function</span>(xmlpath){</a>
+<a class="sourceLine" id="cb21-11" data-line-number="11">    <span class="kw"><a href="../reference/RTestCase.html">RTestCase</a></span>(<span class="dt">xml.fPath=</span>xmlpath)</a>
+<a class="sourceLine" id="cb21-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb21-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb21-14" data-line-number="14">RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/setTestMethod">setTestMethod</a></span>(</a>
+<a class="sourceLine" id="cb21-15" data-line-number="15">        <span class="st">"test.Pkg_1.funct_01"</span>, </a>
+<a class="sourceLine" id="cb21-16" data-line-number="16">        <span class="dt">signature  =</span> <span class="st">"TestPackageTestCase"</span>,</a>
+<a class="sourceLine" id="cb21-17" data-line-number="17">        <span class="dt">definition =</span> <span class="cf">function</span>(object, inputData, execCache, xmlDef, ...) {</a>
+<a class="sourceLine" id="cb21-18" data-line-number="18">            </a>
+<a class="sourceLine" id="cb21-19" data-line-number="19">            <span class="co"># Read parameters</span></a>
+<a class="sourceLine" id="cb21-20" data-line-number="20">            mult &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/xmlReadData_variable">xmlReadData_variable</a></span>(xmlDef[[<span class="st">"params"</span>]][[<span class="st">"mult"</span>]])</a>
+<a class="sourceLine" id="cb21-21" data-line-number="21">            </a>
+<a class="sourceLine" id="cb21-22" data-line-number="22">            </a>
+<a class="sourceLine" id="cb21-23" data-line-number="23">            <span class="co"># Calculate result</span></a>
+<a class="sourceLine" id="cb21-24" data-line-number="24">            result &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/test_execution">test_execution</a></span>(</a>
+<a class="sourceLine" id="cb21-25" data-line-number="25">                    <span class="dt">what        =</span> test_fun,</a>
+<a class="sourceLine" id="cb21-26" data-line-number="26">                    <span class="dt">args        =</span> <span class="kw">list</span>(<span class="kw">c</span>(inputData[[<span class="dv">1</span>]], mult)),</a>
+<a class="sourceLine" id="cb21-27" data-line-number="27">                    <span class="dt">xmlTestSpec =</span> xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"execution"</span>]])</a>
+<a class="sourceLine" id="cb21-28" data-line-number="28">            </a>
+<a class="sourceLine" id="cb21-29" data-line-number="29">            <span class="co"># Read reference</span></a>
+<a class="sourceLine" id="cb21-30" data-line-number="30">            reference &lt;-<span class="st"> </span>RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/xmlReadData_data.frame">xmlReadData_data.frame</a></span>(xmlDef[[<span class="st">"reference"</span>]])</a>
+<a class="sourceLine" id="cb21-31" data-line-number="31">            </a>
+<a class="sourceLine" id="cb21-32" data-line-number="32">            <span class="co"># Execute test</span></a>
+<a class="sourceLine" id="cb21-33" data-line-number="33">            <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.null</span>(xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"return-value"</span>]]))</a>
+<a class="sourceLine" id="cb21-34" data-line-number="34">                RTest<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/RTest/topics/test_returnValue_data.frame_cellbycell">test_returnValue_data.frame_cellbycell</a></span>(</a>
+<a class="sourceLine" id="cb21-35" data-line-number="35">                        result, </a>
+<a class="sourceLine" id="cb21-36" data-line-number="36">                        reference, </a>
+<a class="sourceLine" id="cb21-37" data-line-number="37">                        xmlDef[[<span class="st">"testspec"</span>]][[<span class="st">"return-value"</span>]]</a>
+<a class="sourceLine" id="cb21-38" data-line-number="38">                )    </a>
+<a class="sourceLine" id="cb21-39" data-line-number="39">            </a>
+<a class="sourceLine" id="cb21-40" data-line-number="40">            </a>
+<a class="sourceLine" id="cb21-41" data-line-number="41">            <span class="co"># Return result (will be cached)</span></a>
+<a class="sourceLine" id="cb21-42" data-line-number="42">            <span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb21-43" data-line-number="43">        },</a>
+<a class="sourceLine" id="cb21-44" data-line-number="44">        <span class="dt">where =</span> .GlobalEnv</a>
+<a class="sourceLine" id="cb21-45" data-line-number="45">)</a></code></pre></div>
 <pre><code>## [1] "test.Pkg_1.funct_01"</code></pre>
 <p>As you can see we use <code>xmlReadData_variable</code> to read the xml value of <code>mult</code>. Instead of <code>do.call</code> in RTest we use the wrapper function <code>test_execution</code> that not only runs code, but also checks, if it runs as expected. You can see that each of our test-methods gets the parameter <code>inputData</code> as an input. <code>inputData</code> is a list of all values inside the <code>input-data</code> section of the XML file. The first value inside our XML file was a data.frame, so we use <code>inputData[[1]]</code> to derive its values and hand it over to <code>test_fun</code>.</p>
 <p>The reference can be compared using <code>test_returnValue_data.frame_cellbycell</code> which is the RTest wrapper for <code>expact_equal</code> for data.frames. All our compare functions start with the name <code>test_returnValue_</code> and you can find them by this.</p>
@@ -325,23 +328,23 @@ xsi:noNamespaceSchemaLocation="../xsd/RTest.xsd"&gt;
 <h2 class="hasAnchor">
 <a href="#execute-test" class="anchor"></a>Execute test</h2>
 <p>We can now create a test collection from the folder where we stored the XML test files. In our case we use the basic example that we provide to you inside the package.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Create test collection</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">testCollection &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">"RTestCollection"</span>, </a>
-<a class="sourceLine" id="cb20-3" data-line-number="3">        <span class="dt">project.name    =</span> <span class="st">"RTest Vignette"</span>, </a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">        <span class="dt">project.details =</span> <span class="st">"Example test exectuion"</span>,</a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">        <span class="dt">tester          =</span> <span class="st">"Example tester"</span>,</a>
-<a class="sourceLine" id="cb20-6" data-line-number="6">        <span class="dt">test.start      =</span> <span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">"%Y-%m-%d %H:%M:%S"</span>))</a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co"># Import TCs</span></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9">TCDir &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">find.package</span>(<span class="st">"RTest"</span>),<span class="st">"/xml-templates"</span>)</a>
-<a class="sourceLine" id="cb20-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb20-11" data-line-number="11">testCollection &lt;-<span class="st"> </span><span class="kw"><a href="../reference/importTCsFromDir.html">importTCsFromDir</a></span>(testCollection,</a>
-<a class="sourceLine" id="cb20-12" data-line-number="12">        <span class="dt">xml.dPath =</span> TCDir,<span class="dt">f.pattern=</span><span class="st">"RTest_TC-01.xml"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="co"># Create test collection</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">testCollection &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">"RTestCollection"</span>, </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">        <span class="dt">project.name    =</span> <span class="st">"RTest Vignette"</span>, </a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">        <span class="dt">project.details =</span> <span class="st">"Example test exectuion"</span>,</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">        <span class="dt">tester          =</span> <span class="st">"Example tester"</span>,</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">        <span class="dt">test.start      =</span> <span class="kw">format</span>(<span class="kw">Sys.time</span>(), <span class="st">"%Y-%m-%d %H:%M:%S"</span>))</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb23-8" data-line-number="8"><span class="co"># Import TCs</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">TCDir &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">find.package</span>(<span class="st">"RTest"</span>),<span class="st">"/xml-templates"</span>)</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">testCollection &lt;-<span class="st"> </span><span class="kw"><a href="../reference/importTCsFromDir.html">importTCsFromDir</a></span>(testCollection,</a>
+<a class="sourceLine" id="cb23-12" data-line-number="12">        <span class="dt">xml.dPath =</span> TCDir,<span class="dt">f.pattern=</span><span class="st">"RTest_TC-01.xml"</span>)</a></code></pre></div>
 <p>We will then run our test-collection and a lovely Report will be produced.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">outf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext=</span><span class="st">".html"</span>)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co"># Execute test cases</span></a>
-<a class="sourceLine" id="cb21-4" data-line-number="4">testCollection &lt;-<span class="st"> </span><span class="kw"><a href="../reference/exec.html">exec</a></span>(testCollection, <span class="dt">out.fPath =</span> outf, <span class="dt">open=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">outf &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">fileext=</span><span class="st">".html"</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co"># Execute test cases</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">testCollection &lt;-<span class="st"> </span><span class="kw"><a href="../reference/exec.html">exec</a></span>(testCollection, <span class="dt">out.fPath =</span> outf, <span class="dt">open=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="report.jpg"><!-- --></p>
 <p>DONE!</p>
 <p>For any questions refer to the package maintainer.</p>
