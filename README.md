@@ -51,7 +51,7 @@ devtools::install_github("zappingseb/RTest")
 
 There are two ways to start with RTest
 
-**NOTE**
+:warning: **NOTE on reporting functionalities** :warning:
 
 To derive more comprehensive reports from `testthat>2.0` you would have to overwrite the `testthat` function `as.expectation.logical` by:
 
